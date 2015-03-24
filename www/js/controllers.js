@@ -1,6 +1,20 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashboardCtrl', function($scope) {
+
+})
+
+.controller('SettingsCtrl', function($scope) {
+
+})
+
+.controller('GroupsCtrl', function($scope) {
+
+})
+
+.controller('AccountsCtrl', function($scope) {
+
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
