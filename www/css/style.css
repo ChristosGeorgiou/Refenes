@@ -10,15 +10,15 @@
 }
 
 .menu-left{
-  background:#222;
+  background:#444;
 }
 
 .menu-left .item-complex{
-  border-color:#333;
+  border-color:#555;
 }
 
 .menu-left .item-complex .item-content{
-  background: #222;
+  background: #444;
   color: #EEE;
 }
 
@@ -28,4 +28,24 @@
 
 .menu-left .item-complex p{
   color: #AAA;
+}
+
+.list-notes .item-complex .badge {
+
+  right: 10px;
+  font-size: 1.4em;
+  padding: 0.5em;
+}
+
+.list-notes .item-complex .item-content {
+padding-right:130px;
+}
+
+.action-sheet {
+  margin: 0 15px !important;
+}
+
+.action-sheet .button{
+  padding: 0 15px;
+  border-bottom: solid 1px #EEE !important;
 }

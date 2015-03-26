@@ -1,15 +1,15 @@
-angular.module('refenes', ['ionic', 'refenes.controllers'])
+angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      window.StatusBar.styleDefault();
     }
   });
 })
@@ -20,7 +20,7 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
   .state('app', {
     url: "/app",
     abstract: true,
-    templateUrl: "templates/_main.html",
+    templateUrl: "templates/_layouts/main.html",
     controller: 'AppCtrl',
   })
 
@@ -28,7 +28,8 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/notes",
     views: {
       'content': {
-        templateUrl: "templates/notes.html",
+        templateUrl: "templates/notes/notes.html",
+        controller: "NotesCtrl",
       }
     }
   })
@@ -37,8 +38,8 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/groups",
     views: {
       'content': {
-        templateUrl: "templates/groups.html",
-        controler: "GroupsCtrl",
+        templateUrl: "templates/groups/groups.html",
+        controller: "GroupsCtrl",
       }
     }
   })
@@ -47,7 +48,7 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/{contactId:[0-9]{1,4}}",
     views: {
       'content': {
-        templateUrl: "templates/group_view.html",
+        templateUrl: "templates/groups/group_view.html",
       }
     }
   })
@@ -56,10 +57,20 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/new",
     views: {
       'content': {
-        templateUrl: "templates/group_form.html",
+        templateUrl: "templates/groups/group_form.html",
       }
     }
   })
+
+  .state('app.friends', {
+    url: "/friends",
+    views: {
+      'content': {
+        templateUrl: "templates/friends/friends.html",
+        controller:"FriendsCtrl"
+      }
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/notes');

@@ -1,0 +1,13 @@
+<ion-view view-title="Refenes <small>Friends</small>">
+	<ion-content class="padding">
+		<ion-refresher pulling-text="Pull to refresh" on-refresh="refreshFriends()">
+		</ion-refresher>
+		<ion-list>
+			<ion-item ng-repeat="friend in friends" class="item-avatar" ng-click="menuFriend()">
+				<img ng-src="{{friend.user.picture.thumbnail}}">
+				<h2>{{friend.user.name.first}} {{friend.user.name.last}}</h2>
+				<p>{{friend.user.email}}</p>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

@@ -1,12 +1,35 @@
 angular.module('refenes.controllers', [])
 
+.controller('HelpCtrl', function($scope, $ionicModal) {
+
+	$ionicModal.fromTemplateUrl('templates/_partials/help.html', {
+			scope: $scope
+		})
+		.then(function(modal) {
+			$scope.helpModal = modal;
+		});
+
+	$scope.showHelpModal = function() {
+		$scope.helpModal.show();
+	};
+
+	$scope.hideHelpModal = function() {
+		$scope.helpModal.hide();
+	};
+
+	$scope.$on('$destroy', function() {
+		$scope.helpModal.remove();
+	});
+
+})
+
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 	// Form data for the login modal
 
 	$scope.loginData = {};
 
 	// Create the login modal that we will use later
-	$ionicModal.fromTemplateUrl('templates/login.html', {
+	$ionicModal.fromTemplateUrl('templates/_partials/login.html', {
 		scope: $scope
 	}).then(function(modal) {
 		$scope.loginModal = modal;
@@ -33,55 +56,48 @@ angular.module('refenes.controllers', [])
 		}, 1000);
 	};
 
+})
 
-	$ionicModal.fromTemplateUrl('templates/help.html', {
-			scope: $scope
-		})
-		.then(function(modal) {
-			$scope.helpModal = modal;
+.controller('NotesCtrl', function($scope, $ionicModal, NotesService, $ionicLoading) {
+
+	$scope.refreshNotes = function() {
+		NotesService.all().then(function(data) {
+			console.log("data", data)
+			$scope.notes = data;
+			$scope.$broadcast('scroll.refreshComplete')
+			$ionicLoading.hide()
+		}).catch(function(error) {
+			$scope.error = error;
+			$scope.$broadcast('scroll.refreshComplete')
+			$ionicLoading.hide()
 		});
-
-	$scope.showHelpModal = function() {
-		$scope.helpModal.show()
 	};
 
-	$scope.hideHelpModal = function() {
-		$scope.helpModal.hide();
-	};
+	$scope.newNote = function() {}
 
-	$scope.$on('$destroy', function() {
-		$scope.helpModal.remove();
+	$ionicLoading.show({
+		templateUrl: 'templates/_partials/loading.html',
+		noBackdrop: true,
 	});
 
+	$scope.refreshNotes();
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-	$scope.playlists = [{
-		title: 'Reggae',
-		id: 1
-	}, {
-		title: 'Chill',
-		id: 2
-	}, {
-		title: 'Dubstep',
-		id: 3
-	}, {
-		title: 'Indie',
-		id: 4
-	}, {
-		title: 'Rap',
-		id: 5
-	}, {
-		title: 'Cowbell',
-		id: 6
-	}];
-})
+.controller('GroupsCtrl', function($scope, $ionicModal, GroupsService, $ionicLoading) {
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {})
+	$scope.doRefresh = function() {
+		GroupsService.all().then(function(data) {
+			$scope.groups = data;
+			$scope.$broadcast('scroll.refreshComplete')
+			$ionicLoading.hide()
+		}).catch(function(error) {
+			$scope.error = error;
+			$scope.$broadcast('scroll.refreshComplete')
+			$ionicLoading.hide()
+		});
+	};
 
-.controller('GroupsCtrl', function($scope, $ionicModal) {
-
-	$ionicModal.fromTemplateUrl('templates/group_form.html', {
+	$ionicModal.fromTemplateUrl('templates/groups/group_form.html', {
 			scope: $scope
 		})
 		.then(function(modal) {
@@ -89,7 +105,7 @@ angular.module('refenes.controllers', [])
 		});
 
 	$scope.newGroup = function() {
-		$scope.modal.show()
+		$scope.modal.show();
 	};
 
 	$scope.closeGroup = function() {
@@ -99,5 +115,62 @@ angular.module('refenes.controllers', [])
 	$scope.$on('$destroy', function() {
 		$scope.modal.remove();
 	});
+
+
+	$ionicLoading.show({
+		templateUrl: 'templates/_partials/loading.html',
+		noBackdrop: true,
+	});
+
+	$scope.doRefresh();
+
+})
+
+.controller('FriendsCtrl', function($scope, FriendsService, $ionicLoading, $ionicActionSheet,$timeout) {
+
+	// Triggered on a button click, or some other target
+	// $scope.menuFriend = function() {
+	//
+	// 	// Show the action sheet
+	// 	var hideSheet = $ionicActionSheet.show({
+	// 		buttons: [{
+	// 			text: '<i class="icon ion-paper-airplane"></i> Send a Note',
+	// 		}, {
+	// 			text: '<i class="icon ion-person"></i> View Profile'
+	// 		}],
+	// 		cancelText: 'Cancel',
+	// 		cancel: function() {
+	// 			// add cancel code..
+	// 		},
+	// 		buttonClicked: function(index) {
+	// 			return true;
+	// 		}
+	// 	});
+	//
+	// 	// For example's sake, hide the sheet after two seconds
+	// 	$timeout(function() {
+	// 		hideSheet();
+	// 	}, 7000);
+	//
+	// };
+
+	$scope.refreshFriends = function() {
+		FriendsService.all().then(function(data) {
+			$scope.friends = data;
+			$scope.$broadcast('scroll.refreshComplete')
+			$ionicLoading.hide()
+		}).catch(function(error) {
+			$scope.error = error;
+			$scope.$broadcast('scroll.refreshComplete')
+			$ionicLoading.hide()
+		});
+	};
+
+	$ionicLoading.show({
+		templateUrl: 'templates/_partials/loading.html',
+		noBackdrop: true,
+	});
+
+	$scope.refreshFriends();
 
 });

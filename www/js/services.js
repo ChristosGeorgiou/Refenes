@@ -1,50 +1,141 @@
 angular.module('refenes.services', [])
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+.factory('FriendsService', function($http) {
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  }, {
-    id: 2,
-    name: 'Andrew Jostlin',
-    lastText: 'Did you get the ice cream?',
-    face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-  }, {
-    id: 3,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 4,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
-  }];
+	return {
+		one: function() {
 
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
+			var promise = $http
+				.get('http://api.randomuser.me')
+				.then(function(response) {
+					return response.data.results[0];
+				});
+
+			return promise;
+
+		},
+		all: function() {
+
+			var promise = $http
+				.get('http://api.randomuser.me/?results=10')
+				.then(function(response) {
+					return response.data.results;
+				});
+
+			return promise;
+
+		}
+	};
+
+})
+
+.factory('GroupsService', function($http) {
+
+	return {
+		all: function() {
+
+			var promise = $http
+				.get('/data/groups.json')
+				.then(function(response) {
+					return response.data;
+				});
+
+			return promise;
+
+		}
+	};
+
+})
+
+.factory('NotesService', function($http, FriendsService, $q) {
+
+	var self = this;
+	var deferred = $q.defer();
+
+	self.all = function() {
+
+		$http
+			.get('/data/notes.json')
+			.then(function(response) {
+
+				var promises = [];
+				var notes = response.data;
+
+
+				angular.forEach(notes, function(note,index) {
+
+					var promise = FriendsService.one().then(function(results) {
+						notes[index].user = results.user;
+						console.log("notes", index)
+					});
+
+					promises.push(promise);
+
+				});
+
+
+				$q.all(promises).then(function() {
+
+					console.log("resolved", notes.length)
+
+					deferred.resolve(notes);
+				});
+
+			});
+
+		return deferred.promise;
+
+	};
+
+	return self;
+
+})
+
+
+.service('Incomes', function(Projects, $q) {
+
+	var self = this;
+
+	var deferred = $q.defer();
+	var incomes = [];
+
+	self.buildAndGetIncomes = function() {
+
+		Projects.async().then(function(d) {
+			var projects = d;
+
+			angular.forEach(projects, function(project) {
+
+				if (typeof(project.account.accountAmount) == 'number' && project.account.accountAmount > 0) {
+					var newIncome = {};
+					newIncome.projectName = project.projectName;
+					newIncome.clientName = project.clientName;
+					newIncome.typeIncome = "Accompte";
+					newIncome.amount = project.account.amountAccount;
+					newIncome.date = project.account.accountDate;
+					newIncome.notes = project.account.accountType;
+					incomes.push(newIncome);
+				}
+			});
+
+			angular.forEach(projects, function(project) {
+
+
+				if (typeof(project.total.totalAmount) == 'number' && project.total.totalAmount > 0) {
+					var newIncome = {};
+					newIncome.projectName = project.projectName;
+					newIncome.clientName = project.clientName;
+					newIncome.typeIncome = "Accompte";
+					newIncome.amount = project.total.totalAmount;
+					newIncome.date = project.total.totalDate;
+					newIncome.notes = project.total.totalType;
+					incomes.push(newIncome);
+				}
+			});
+
+			deferred.resolve(incomes);
+		});
+
+		return deferred.promise;
+	};
 });
