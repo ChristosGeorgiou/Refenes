@@ -1,37 +1,24 @@
 <ion-view view-title="Refenes <small>Groups</small>">
-  <ion-nav-bar class="bar-dark">
 
-    <ion-nav-buttons side="left">
-      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-      </button>
-    </ion-nav-buttons>
+	<ion-content class="padding">
+		<button class="button button-block button-outline button-balanced" ng-controller='GroupsCtrl' ng-click="newGroup()">Add a new Group</button>
 
-    <ion-nav-buttons side="right">
-      <button class="button button-icon button-clear ion-ios-help-outline">
-      </button>
-    </ion-nav-buttons>
+		<div class="list">
 
-  </ion-nav-bar>
+			<a class="item item-icon-left ng-binding" href="#/app/groups/1">
+				<i class="icon ion-ios-time-outline" style="color:#FF0000"></i>
+				<h2>Prague - 20/01/2015</h2>
+				<p>Christos, Vasilis, Ioanna, Achileas, Tassos</p>
+			</a>
 
-  <ion-content class="padding">
-    <a  href="#/app/groups/new" class="button button-block button-balanced">Add a new Group</a>
+			<a class="item item-icon-left ng-binding" href="#/app/groups/5">
+				<i class="icon ion-ios-checkmark-outline" style="color:#038900"></i>
+				<h2>Πύλη - 02/11/2014</h2>
+				<p>Christos, Vasilis, Ioanna, Achileas, Tassos</p>
+			</a>
 
-    <div class="list">
+		</div>
 
-      <a class="item item-icon-left ng-binding" href="#/app/groups/1">
-        <i class="icon ion-ios-time-outline" style="color:#FF0000"></i>
-        <h2>Prague - 20/01/2015</h2>
-        <p>Christos, Vasilis, Ioanna, Achileas, Tassos</p>
-      </a>
-
-      <a class="item item-icon-left ng-binding" href="#/app/groups/5">
-        <i class="icon ion-ios-checkmark-outline" style="color:#038900"></i>
-        <h2>Πύλη - 02/11/2014</h2>
-        <p>Christos, Vasilis, Ioanna, Achileas, Tassos</p>
-      </a>
-
-    </div>
-
-  </ion-content>
+	</ion-content>
 
 </ion-view>

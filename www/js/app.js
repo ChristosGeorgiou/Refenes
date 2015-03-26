@@ -21,14 +21,14 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/app",
     abstract: true,
     templateUrl: "templates/_main.html",
-    controller: 'AppCtrl'
+    controller: 'AppCtrl',
   })
 
   .state('app.notes', {
     url: "/notes",
     views: {
       'content': {
-        templateUrl: "templates/notes.html"
+        templateUrl: "templates/notes.html",
       }
     }
   })
@@ -37,7 +37,8 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/groups",
     views: {
       'content': {
-        templateUrl: "templates/groups.html"
+        templateUrl: "templates/groups.html",
+        controler: "GroupsCtrl",
       }
     }
   })
@@ -55,11 +56,11 @@ angular.module('refenes', ['ionic', 'refenes.controllers'])
     url: "/new",
     views: {
       'content': {
-        templateUrl: "templates/group_form.html"
+        templateUrl: "templates/group_form.html",
       }
     }
   })
 
   // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/app/notes');
+  $urlRouterProvider.otherwise('/app/notes');
 });

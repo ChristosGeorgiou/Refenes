@@ -8,3 +8,24 @@
   font-size:0.7em;
   opacity:0.6
 }
+
+.menu-left{
+  background:#222;
+}
+
+.menu-left .item-complex{
+  border-color:#333;
+}
+
+.menu-left .item-complex .item-content{
+  background: #222;
+  color: #EEE;
+}
+
+.menu-left .item-complex h2{
+  color: #EEE;
+}
+
+.menu-left .item-complex p{
+  color: #AAA;
+}

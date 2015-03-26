@@ -1,6 +1,32 @@
-<ion-view view-title="Refenes <span class='subtitle'>Πύλη</span>">
-
-  <ion-content>
-    <h1>new</h1>
+<ion-modal-view>
+  <ion-header-bar class="bar-dark">
+    <h1 class="title">New Group</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeGroup()"><i class="icon ion-ios-close-outline"></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="card">
+      <div class="item item-text-wrap">
+        Note that all users added will be notified for this group.
+        If a user does not have an account the note will be save until
+        he registers.
+      </div>
+    </div>
+    <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="loginData.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="loginData.password">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Add Group</button>
+        </label>
+      </div>
+    </form>
   </ion-content>
-</ion-view>
+</ion-modal-view>
