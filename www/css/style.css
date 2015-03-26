@@ -1,1 +1,10 @@
 /* Empty. Add your own CSS if you like */
+
+.title.title-left.header-item{
+  left: 30px !important;
+}
+
+.title small{
+  font-size:0.7em;
+  opacity:0.6
+}

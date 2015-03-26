@@ -1,34 +1,55 @@
-angular.module('starter.controllers', [])
+angular.module('refenes.controllers', [])
 
-.controller('DashboardCtrl', function($scope) {
+.controller('AppCtrl',
+  ['$scope', '$ionicModal', '$timeout', '$stateParams', '$state',
+  function($scope, $ionicModal, $timeout, $stateParams, $state) {
+  // Form data for the login modal
 
-})
+  console.log($state.current)
+  console.log($stateParams)
 
-.controller('SettingsCtrl', function($scope) {
 
-})
+  $scope.loginData = {};
 
-.controller('GroupsCtrl', function($scope) {
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
-})
-
-.controller('AccountsCtrl', function($scope) {
-
-})
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+  // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
   };
+
+  // Open the login modal
+  $scope.login = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
+}])
+
+.controller('PlaylistsCtrl', function($scope) {
+  $scope.playlists = [
+    { title: 'Reggae', id: 1 },
+    { title: 'Chill', id: 2 },
+    { title: 'Dubstep', id: 3 },
+    { title: 'Indie', id: 4 },
+    { title: 'Rap', id: 5 },
+    { title: 'Cowbell', id: 6 }
+  ];
+})
+
+.controller('PlaylistCtrl', function($scope, $stateParams) {
 });

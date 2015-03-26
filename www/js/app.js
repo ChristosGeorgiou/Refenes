@@ -1,11 +1,4 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('refenes', ['ionic', 'refenes.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,92 +15,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
+  .state('app', {
+    url: "/app",
     abstract: true,
-    templateUrl: "templates/tabs.html"
+    templateUrl: "templates/_main.html",
+    controller: 'AppCtrl'
   })
 
-  // Each tab has its own nav history stack:
-
-  .state('tab.dashboard', {
-    url: '/dashboard',
+  .state('app.notes', {
+    url: "/notes",
     views: {
-      'tab-dashboard': {
-        templateUrl: 'templates/tab-dashboard.html',
-        controller: 'DashboardCtrl'
+      'content': {
+        templateUrl: "templates/notes.html"
       }
     }
   })
 
-  .state('tab.accounts', {
-    url: '/accounts',
+  .state('app.groups', {
+    url: "/groups",
     views: {
-      'tab-accounts': {
-        templateUrl: 'templates/tab-accounts.html',
-        controller: 'AccountsCtrl'
+      'content': {
+        templateUrl: "templates/groups.html"
       }
     }
   })
 
-  .state('tab.groups', {
-    url: '/groups',
+  .state('app.groups.detail', {
+    url: "/{contactId:[0-9]{1,4}}",
     views: {
-      'tab-groups': {
-        templateUrl: 'templates/tab-groups.html',
-        controller: 'GroupsCtrl'
+      'content': {
+        templateUrl: "templates/group_view.html",
       }
     }
   })
 
-  .state('tab.settings', {
-    url: '/settings',
+  .state('app.groups.new', {
+    url: "/new",
     views: {
-      'tab-settings': {
-        templateUrl: 'templates/tab-settings.html',
-        controller: 'SettingsCtrl'
+      'content': {
+        templateUrl: "templates/group_form.html"
       }
     }
   })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dashboard');
-
+  //$urlRouterProvider.otherwise('/app/notes');
 });
