@@ -55,11 +55,9 @@ angular.module('refenes.services', [])
 	self.all = function() {
 
 		$http
-			.get('/data/notes.json')
 			.then(function(response) {
-
 				var promises = [];
-				var notes = response.data;
+				var notes = response.data.data.notes;
 
 
 				angular.forEach(notes, function(note,index) {
