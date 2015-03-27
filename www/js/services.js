@@ -55,6 +55,7 @@ angular.module('refenes.services', [])
 	self.all = function() {
 
 		$http
+			.get('http://192.168.3.105:9999/christos')
 			.then(function(response) {
 				var promises = [];
 				var notes = response.data.data.notes;
