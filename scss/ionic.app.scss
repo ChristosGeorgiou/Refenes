@@ -18,7 +18,10 @@ $dark: #222 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import
+	"scss/tables",
+	"www/lib/ionic/scss/ionic";
+
 @function set-text($color) {
  @if (lightness($color) > 50) {
   @return #222;
@@ -71,4 +74,17 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .action-sheet .button {
  padding: 0 15px;
  border-bottom: solid 1px #eee !important;
+}
+
+code{
+	background:#EEE;
+	padding:2px;
+
+}
+
+pre{
+	background:#EEE;
+	border-radius:5px;
+	padding:5px;
+	margin-bottom:10px;
 }
