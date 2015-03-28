@@ -20,7 +20,7 @@ angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
 
   $stateProvider
 
-  .state('start', {
+    .state('start', {
     url: "/start",
     templateUrl: "templates/general/start.html",
     controller: 'StartCtrl',
@@ -83,6 +83,15 @@ angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
       'content': {
         templateUrl: "templates/friends/friends.html",
         controller: "FriendsCtrl"
+      }
+    }
+  })
+  .state('app.settings', {
+    url: "/settings",
+    views: {
+      'content': {
+        templateUrl: "templates/settings/list.html",
+        controller: "SettingsCtrl"
       }
     }
   });

@@ -8,8 +8,8 @@ angular.module('refenes.controllers', [])
 
     //####
     $scope.status = "FORCEINIT";
-    $db.set("_settings", false);
-    $db.set("_user", false);
+    $db.delete("_settings");
+    $db.delete("_user");
     //####
 
     $scope.loading = true;
@@ -17,7 +17,7 @@ angular.module('refenes.controllers', [])
 
     if (!$config.settings) {
       $scope.status = "Loading Settings<br>Please wait...";
-      $config.load_settings($scope).then(function(){
+      $config.setup($scope).then(function() {
         $state.go('login');
       }, function(reason) {
         $scope.loading = false;
@@ -32,8 +32,9 @@ angular.module('refenes.controllers', [])
 
 })
 
-.controller('LoginCtrl', function($scope, $config , $state, $ionicHistory) {
+.controller('LoginCtrl', function($scope, $config, $state, $ionicHistory) {
   $ionicHistory.clearHistory();
+  $scope.$broadcast('scroll.refreshComplete');
 
   $config.validate(["config"], function() {
     $state.go('start');
@@ -45,8 +46,15 @@ angular.module('refenes.controllers', [])
 
   $scope.credientials = {};
   $scope.login = function() {
-    console.log("credientials", $scope.credientials);
-    $state.go('app.notes');
+    $scope.loading = true;
+    $scope.status = "Sign in<br>Please wait...";
+    $config.login($scope).then(function() {
+      $state.go('app.notes');
+    }, function(reason) {
+      $scope.loading = false;
+      $scope.error = reason.msg;
+    });
+
   };
 
 })
@@ -74,50 +82,21 @@ angular.module('refenes.controllers', [])
 
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-  // Form data for the login modal
-
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/_partials/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.loginModal = modal;
+.controller('AppCtrl', function($scope, $config, $state) {
+  $config.validate(["config", "user"], function() {
+    $state.go('start');
   });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.loginModal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.loginModal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-
 })
 
-.controller('NotesCtrl', function($scope, $ionicModal, NotesService, $ionicLoading) {
+.controller('NotesCtrl', function($scope, $ionicModal, $ionicLoading, $data) {
 
   $scope.refreshNotes = function() {
-    NotesService.all().then(function(data) {
-      console.log("data", data)
-      $scope.notes = data;
+
+    $data.notes.all().then(function(notes) {
+      $scope.notes = notes;
       $scope.$broadcast('scroll.refreshComplete')
       $ionicLoading.hide()
-    }).catch(function(error) {
+    }, function(error) {
       $scope.error = error;
       $scope.$broadcast('scroll.refreshComplete')
       $ionicLoading.hide()
@@ -130,7 +109,6 @@ angular.module('refenes.controllers', [])
     templateUrl: 'templates/_partials/loading.html',
     noBackdrop: true,
   });
-
   $scope.refreshNotes();
 })
 
@@ -224,4 +202,11 @@ angular.module('refenes.controllers', [])
 
   $scope.refreshFriends();
 
+})
+
+.controller('SettingsCtrl', function($scope, $config, $state) {
+  $scope.Logoff = function() {
+    $config.logoff();
+    $state.go("login");
+  };
 });

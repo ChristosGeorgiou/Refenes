@@ -6,7 +6,7 @@ angular.module('refenes.services', [])
 
   return {
     validate: function(vars, callback) {
-      var _this = this;
+
       var validators = {
         config: function() {
           return $db.getObject("_settings");
@@ -21,14 +21,15 @@ angular.module('refenes.services', [])
           callback();
         }
       }
+
     },
-    load_settings: function($scope) {
+
+    setup: function($scope) {
 
       var config = $db.getObject("_settings");
 
       if (!config) {
         $scope.status = "Initializing...";
-        console.log("Empty application");
         $timeout(function() {
           $remote
             .fetch("_appConfig")
@@ -40,7 +41,7 @@ angular.module('refenes.services', [])
                 });
               } else {
                 $db.setObject("_settings", config.data);
-                deferred.resolve(config.data);
+                deferred.resolve();
               }
             });
         }, 1000);
@@ -49,9 +50,53 @@ angular.module('refenes.services', [])
       }
 
       return deferred.promise;
+
     },
-    user: function($scope) {
+
+    user: function() {
+
       return $db.getObject("_user") || false;
+
+    },
+
+    login: function($scope) {
+
+      //TODO REAL LOGIN
+
+      var TEMP_USER = {
+        "userid": 999,
+        "username": "christos",
+      };
+
+      $scope.status = "Loading data<br>Please wait...";
+
+      $db.setObject("_user", TEMP_USER);
+      $remote
+        .fetch(TEMP_USER.username)
+        .then(function(userdb) {
+          if (userdb.error) {
+            deferred.reject({
+              msg: 'User not found',
+              info: userdb.data,
+            });
+          } else {
+
+            angular.forEach(userdb.data, function(data, index) {
+              $db.setObject(index, data);
+            });
+
+            deferred.resolve();
+          }
+        });
+
+
+      return deferred.promise;
+    },
+
+    logoff: function() {
+
+      $db.delete("_user");
+
     }
   };
 
@@ -71,7 +116,7 @@ angular.module('refenes.services', [])
           } else {
             console.log("Loaded Data[" + item + "]", item);
           }
-          return response;
+          return response.data;
         }, function(response) {
           //console.log("response",response);
           var errorStatus;
@@ -116,13 +161,45 @@ angular.module('refenes.services', [])
     get: function(key, defaultValue) {
       return $window.localStorage[key] || defaultValue;
     },
+    delete: function(key) {
+      $window.localStorage.removeItem(key);
+    },
     setObject: function(key, value) {
       $window.localStorage[key] = JSON.stringify(value);
     },
     getObject: function(key) {
+      console.log($window.localStorage[key]);
       return (!$window.localStorage[key]) ? false : JSON.parse($window.localStorage[key] || '{}');
     }
-  }
+  };
+})
+
+.factory('$data', function($db, $config, $remote, $q, $timeout) {
+  var deferred = $q.defer();
+  return {
+    notes: {
+      all: function() {
+        $timeout(function() {
+          $remote
+            .fetch($config.user().username)
+            .then(function(userdb) {
+              if (userdb.error) {
+                deferred.reject({
+                  msg: 'Could not load userdata<br>from remote server.',
+                  info: userdb.data,
+                });
+              } else {
+                deferred.resolve(userdb.data.notes);
+              }
+            });
+        }, 1000);
+
+        return deferred.promise;
+
+      }
+    }
+  };
+
 })
 
 .factory('FriendsService', function($http) {
@@ -154,65 +231,12 @@ angular.module('refenes.services', [])
 
 })
 
-.factory('GroupsService', function($http) {
+.factory('GroupsService', function($http, $db) {
 
   return {
     all: function() {
-
-      var promise = $http
-        .get('/data/groups.json')
-        .then(function(response) {
-          return response.data;
-        });
-
-      return promise;
-
+      return $db.getObject("groups");
     }
   };
 
-})
-
-.factory('NotesService', function($http, FriendsService, $q) {
-
-  var self = this;
-  var deferred = $q.defer();
-
-  self.all = function() {
-
-    $http
-      .get('/data/notes.json')
-      .then(function(response) {
-
-        var promises = [];
-
-        var notes = response.data;
-
-
-        angular.forEach(notes, function(note, index) {
-
-          var promise = FriendsService.one().then(function(results) {
-            notes[index].user = results.user;
-            console.log("notes", index)
-          });
-
-          promises.push(promise);
-
-        });
-
-
-        $q.all(promises).then(function() {
-
-          console.log("resolved", notes.length)
-
-          deferred.resolve(notes);
-        });
-
-      });
-
-    return deferred.promise;
-
-  };
-
-  return self;
-
-})
+});
