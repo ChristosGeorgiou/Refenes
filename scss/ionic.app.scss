@@ -14,10 +14,77 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-
+$dark: #222 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import
+	"scss/tables",
+	"www/lib/ionic/scss/ionic";
 
+@function set-text($color) {
+ @if (lightness($color) > 50) {
+  @return #222;
+ }
+ @else {
+  @return #CCC;
+ }
+}
+.title.title-left.header-item {
+ left: 30px !important;
+}
+.bar {
+ &.bar-dark {
+  .title {
+   color: set-text($dark);
+   small {
+    font-size: 0.7em;
+    opacity: 0.6;
+   }
+  }
+ }
+}
+.menu-left {
+ background: $dark;
+}
+.menu-left .item-complex {
+ border-color: lighten($dark,5);
+}
+.menu-left .item-complex .item-content {
+ background: $dark;
+ color: set-text($dark);
+}
+.menu-left .item-complex h2 {
+ color: set-text($dark);
+}
+.menu-left .item-complex p {
+ color: lighten($dark,30);
+}
+.list-notes .item-complex .badge {
+ right: 10px;
+ font-size: 1.4em;
+ padding: 0.5em;
+}
+.list-notes .item-complex .item-content {
+ padding-right: 130px;
+}
+.action-sheet {
+ margin: 0 15px !important;
+}
+.action-sheet .button {
+ padding: 0 15px;
+ border-bottom: solid 1px #eee !important;
+}
+
+code{
+	background:#EEE;
+	padding:2px;
+
+}
+
+pre{
+	background:#EEE;
+	border-radius:5px;
+	padding:5px;
+	margin-bottom:10px;
+}

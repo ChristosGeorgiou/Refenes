@@ -1,4 +1,12 @@
 {
   "name": "Refenes",
-  "app_id": "632ce721"
+  "app_id": "632ce721",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

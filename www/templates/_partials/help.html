@@ -1,11 +1,133 @@
 <ion-modal-view>
-  <ion-header-bar class="bar-dark">
-    <h1 class="title">Help</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="hideHelpModal()"><i class="icon ion-ios-close-outline"></i></button>
-    </div>
-  </ion-header-bar>
-  <ion-content class="padding">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </ion-content>
+	<ion-header-bar class="bar-dark">
+		<h1 class="title">Help</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="hideHelpModal()"><i class="icon ion-ios-close-outline"></i></button>
+		</div>
+	</ion-header-bar>
+	<ion-content class="padding">
+		<h3>What is Refenes</h3>
+
+		<p>Refenes is an online tool to manage the common bill with your friend. The name itself comes from greek
+			<code>ρεφενές</code> which comes from turkish
+			<code>refene</code> witch comes from persian
+			<code>عارفانه</code> (arefaneh) and means
+			<code>individual share in a collective cost for food, entertainment , etc.</code>
+			<a href="#" onclick="window.open('http://el.wiktionary.org/wiki/%CF%81%CE%B5%CF%86%CE%B5%CE%BD%CE%AD%CF%82', '_system', 'location=yes'); return false;">REF</a></p>
+
+		<p>Here in Greece we used not to split the bill if we go out. Each time someone will pay and eventually at some point we will get even. This give us the time to actually accurate and not to look for changes in our wallets, plus if someone don't have money
+			we sure want him to our company. Now with the economic crisis the problem is that no one have money to cover the others. More than one person pays each time, making common the reaction
+			<code>I have lost the ball</code>
+		</p>
+
+		<p>Refenes keep tracking these expenses accurately and throwing some math to simplify the final transactions.</p>
+
+		<h3>
+			<a id="user-content-how-it-works" class="anchor" href="#how-it-works" aria-hidden="true">
+				<span class="octicon octicon-link"></span>
+			</a>How it works</h3>
+
+		<p>Follow the next example:</p>
+
+		<pre>The party is Bill, Mary, John and Paul
+1. Bill give 15€ for all members of the party
+2. Mary give 25€ for Bill, John and her
+3. Paul give 10€ for Bill</pre>
+
+		<p>According to the above</p>
+
+		<table class="table table-condensed table-bordered table-striped table-advanced">
+			<thead>
+				<tr>
+					<th></th>
+					<th>B</th>
+					<th>M</th>
+					<th>P</th>
+					<th>J</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>B</th>
+					<td>X</td>
+					<td>3.75</td>
+					<td>3.75</td>
+					<td>3.75</td>
+				</tr>
+				<tr>
+					<th>M</th>
+					<td>8.33</td>
+					<td>X</td>
+					<td></td>
+					<td>8.33</td>
+				</tr>
+				<tr>
+					<th>P</th>
+					<td>10</td>
+					<td></td>
+					<td>X</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>J</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>X</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>After the first round of simplification</p>
+
+		<pre>i = j = 1..members x = [i,j]-[j,i]</pre>
+
+		<table class="table table-condensed table-bordered table-striped table-advanced">
+			<thead>
+				<tr>
+					<th></th>
+					<th>B</th>
+					<th>M</th>
+					<th>P</th>
+					<th>J</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>B</th>
+					<td>X</td>
+					<td>0</td>
+					<td>0</td>
+					<td>3.75</td>
+				</tr>
+				<tr>
+					<th>M</th>
+					<td>4.58</td>
+					<td>X</td>
+					<td></td>
+					<td>8.33</td>
+				</tr>
+				<tr>
+					<th>P</th>
+					<td>6,25</td>
+					<td></td>
+					<td>X</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>J</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>X</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<pre>
+1. Bill should get 3.75€ from John
+2. Mary should get 4.58€ from Bill and 8.33€ from John
+3. Paul should get 6.25€ from Bill
+		</pre>
+	</ion-content>
 </ion-modal-view>
