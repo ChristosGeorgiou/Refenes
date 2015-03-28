@@ -11,11 +11,26 @@ angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
       // org.apache.cordova.statusbar required
       window.StatusBar.styleDefault();
     }
+
+
   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
+
+  .state('start', {
+    url: "/start",
+    templateUrl: "templates/general/start.html",
+    controller: 'StartCtrl',
+  })
+
+  .state('login', {
+    url: "/login",
+    templateUrl: "templates/general/login.html",
+    controller: 'LoginCtrl',
+  })
 
   .state('app', {
     url: "/app",
@@ -67,11 +82,12 @@ angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
     views: {
       'content': {
         templateUrl: "templates/friends/friends.html",
-        controller:"FriendsCtrl"
+        controller: "FriendsCtrl"
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/notes');
+
+  $urlRouterProvider.otherwise('/start');
 });

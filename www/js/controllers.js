@@ -1,176 +1,228 @@
 angular.module('refenes.controllers', [])
 
+.controller('StartCtrl', function($scope, $config, $timeout, $state, $db,  $ionicHistory) {
+  $ionicHistory.clearHistory();
+
+  $scope.initUser = function() {
+    $scope.status = "DEST CONFIG...";
+    $db.set("_user", false);
+    $scope.loading = true;
+    $scope.status = "Checking User...";
+
+    if ($config.user()) {
+      $timeout(function() {
+        $scope.status = "Logged in!";
+        //$state.go('app.notes');
+      }, 1000);
+    } else {
+      $timeout(function() {
+        $scope.status = "User not found...";
+        $state.go('login');
+      }, 1000);
+    }
+
+  };
+
+  $scope.initApp = function() {
+    $scope.status = "DEST CONFIG...";
+    $db.set("_config", false);
+    $scope.loading = true;
+    $scope.status = "Loading...";
+
+    $config
+      .init($scope)
+      .then(function(config) {
+        $scope.initUser();
+      }, function(reason) {
+        $scope.loading = false;
+        $scope.error = reason.msg;
+        $scope.info = reason.info;
+      });
+  };
+
+  $scope.initApp();
+
+})
+
+.controller('LoginCtrl', function($scope, $config, $timeout, $state, $db) {
+
+  $config.validate(["config"], function() {
+    $state.go('start');
+  });
+
+})
+
 .controller('HelpCtrl', function($scope, $ionicModal) {
 
-	$ionicModal.fromTemplateUrl('templates/_partials/help.html', {
-			scope: $scope
-		})
-		.then(function(modal) {
-			$scope.helpModal = modal;
-		});
+  $ionicModal.fromTemplateUrl('templates/_partials/help.html', {
+      scope: $scope
+    })
+    .then(function(modal) {
+      $scope.helpModal = modal;
+    });
 
-	$scope.showHelpModal = function() {
-		$scope.helpModal.show();
-	};
+  $scope.showHelpModal = function() {
+    $scope.helpModal.show();
+  };
 
-	$scope.hideHelpModal = function() {
-		$scope.helpModal.hide();
-	};
+  $scope.hideHelpModal = function() {
+    $scope.helpModal.hide();
+  };
 
-	$scope.$on('$destroy', function() {
-		$scope.helpModal.remove();
-	});
+  $scope.$on('$destroy', function() {
+    $scope.helpModal.remove();
+  });
 
 })
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-	// Form data for the login modal
+  // Form data for the login modal
 
-	$scope.loginData = {};
+  $scope.loginData = {};
 
-	// Create the login modal that we will use later
-	$ionicModal.fromTemplateUrl('templates/_partials/login.html', {
-		scope: $scope
-	}).then(function(modal) {
-		$scope.loginModal = modal;
-	});
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/_partials/login.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.loginModal = modal;
+  });
 
-	// Triggered in the login modal to close it
-	$scope.closeLogin = function() {
-		$scope.loginModal.hide();
-	};
+  // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.loginModal.hide();
+  };
 
-	// Open the login modal
-	$scope.login = function() {
-		$scope.loginModal.show();
-	};
+  // Open the login modal
+  $scope.login = function() {
+    $scope.loginModal.show();
+  };
 
-	// Perform the login action when the user submits the login form
-	$scope.doLogin = function() {
-		console.log('Doing login', $scope.loginData);
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
 
-		// Simulate a login delay. Remove this and replace with your login
-		// code if using a login system
-		$timeout(function() {
-			$scope.closeLogin();
-		}, 1000);
-	};
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
 
 })
 
 .controller('NotesCtrl', function($scope, $ionicModal, NotesService, $ionicLoading) {
 
-	$scope.refreshNotes = function() {
-		NotesService.all().then(function(data) {
-			console.log("data", data)
-			$scope.notes = data;
-			$scope.$broadcast('scroll.refreshComplete')
-			$ionicLoading.hide()
-		}).catch(function(error) {
-			$scope.error = error;
-			$scope.$broadcast('scroll.refreshComplete')
-			$ionicLoading.hide()
-		});
-	};
+  $scope.refreshNotes = function() {
+    NotesService.all().then(function(data) {
+      console.log("data", data)
+      $scope.notes = data;
+      $scope.$broadcast('scroll.refreshComplete')
+      $ionicLoading.hide()
+    }).catch(function(error) {
+      $scope.error = error;
+      $scope.$broadcast('scroll.refreshComplete')
+      $ionicLoading.hide()
+    });
+  };
 
-	$scope.newNote = function() {}
+  $scope.newNote = function() {}
 
-	$ionicLoading.show({
-		templateUrl: 'templates/_partials/loading.html',
-		noBackdrop: true,
-	});
+  $ionicLoading.show({
+    templateUrl: 'templates/_partials/loading.html',
+    noBackdrop: true,
+  });
 
-	$scope.refreshNotes();
+  $scope.refreshNotes();
 })
 
 .controller('GroupsCtrl', function($scope, $ionicModal, GroupsService, $ionicLoading) {
 
-	$scope.doRefresh = function() {
-		GroupsService.all().then(function(data) {
-			$scope.groups = data;
-			$scope.$broadcast('scroll.refreshComplete')
-			$ionicLoading.hide()
-		}).catch(function(error) {
-			$scope.error = error;
-			$scope.$broadcast('scroll.refreshComplete')
-			$ionicLoading.hide()
-		});
-	};
+  $scope.doRefresh = function() {
+    GroupsService.all().then(function(data) {
+      $scope.groups = data;
+      $scope.$broadcast('scroll.refreshComplete')
+      $ionicLoading.hide()
+    }).catch(function(error) {
+      $scope.error = error;
+      $scope.$broadcast('scroll.refreshComplete')
+      $ionicLoading.hide()
+    });
+  };
 
-	$ionicModal.fromTemplateUrl('templates/groups/group_form.html', {
-			scope: $scope
-		})
-		.then(function(modal) {
-			$scope.modal = modal;
-		});
+  $ionicModal.fromTemplateUrl('templates/groups/group_form.html', {
+      scope: $scope
+    })
+    .then(function(modal) {
+      $scope.modal = modal;
+    });
 
-	$scope.newGroup = function() {
-		$scope.modal.show();
-	};
+  $scope.newGroup = function() {
+    $scope.modal.show();
+  };
 
-	$scope.closeGroup = function() {
-		$scope.modal.hide();
-	};
+  $scope.closeGroup = function() {
+    $scope.modal.hide();
+  };
 
-	$scope.$on('$destroy', function() {
-		$scope.modal.remove();
-	});
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
 
 
-	$ionicLoading.show({
-		templateUrl: 'templates/_partials/loading.html',
-		noBackdrop: true,
-	});
+  $ionicLoading.show({
+    templateUrl: 'templates/_partials/loading.html',
+    noBackdrop: true,
+  });
 
-	$scope.doRefresh();
+  $scope.doRefresh();
 
 })
 
-.controller('FriendsCtrl', function($scope, FriendsService, $ionicLoading, $ionicActionSheet,$timeout) {
+.controller('FriendsCtrl', function($scope, FriendsService, $ionicLoading, $ionicActionSheet, $timeout) {
 
-	// Triggered on a button click, or some other target
-	// $scope.menuFriend = function() {
-	//
-	// 	// Show the action sheet
-	// 	var hideSheet = $ionicActionSheet.show({
-	// 		buttons: [{
-	// 			text: '<i class="icon ion-paper-airplane"></i> Send a Note',
-	// 		}, {
-	// 			text: '<i class="icon ion-person"></i> View Profile'
-	// 		}],
-	// 		cancelText: 'Cancel',
-	// 		cancel: function() {
-	// 			// add cancel code..
-	// 		},
-	// 		buttonClicked: function(index) {
-	// 			return true;
-	// 		}
-	// 	});
-	//
-	// 	// For example's sake, hide the sheet after two seconds
-	// 	$timeout(function() {
-	// 		hideSheet();
-	// 	}, 7000);
-	//
-	// };
+  // Triggered on a button click, or some other target
+  // $scope.menuFriend = function() {
+  //
+  // 	// Show the action sheet
+  // 	var hideSheet = $ionicActionSheet.show({
+  // 		buttons: [{
+  // 			text: '<i class="icon ion-paper-airplane"></i> Send a Note',
+  // 		}, {
+  // 			text: '<i class="icon ion-person"></i> View Profile'
+  // 		}],
+  // 		cancelText: 'Cancel',
+  // 		cancel: function() {
+  // 			// add cancel code..
+  // 		},
+  // 		buttonClicked: function(index) {
+  // 			return true;
+  // 		}
+  // 	});
+  //
+  // 	// For example's sake, hide the sheet after two seconds
+  // 	$timeout(function() {
+  // 		hideSheet();
+  // 	}, 7000);
+  //
+  // };
 
-	$scope.refreshFriends = function() {
-		FriendsService.all().then(function(data) {
-			$scope.friends = data;
-			$scope.$broadcast('scroll.refreshComplete')
-			$ionicLoading.hide()
-		}).catch(function(error) {
-			$scope.error = error;
-			$scope.$broadcast('scroll.refreshComplete')
-			$ionicLoading.hide()
-		});
-	};
+  $scope.refreshFriends = function() {
+    FriendsService.all().then(function(data) {
+      $scope.friends = data;
+      $scope.$broadcast('scroll.refreshComplete')
+      $ionicLoading.hide()
+    }).catch(function(error) {
+      $scope.error = error;
+      $scope.$broadcast('scroll.refreshComplete')
+      $ionicLoading.hide()
+    });
+  };
 
-	$ionicLoading.show({
-		templateUrl: 'templates/_partials/loading.html',
-		noBackdrop: true,
-	});
+  $ionicLoading.show({
+    templateUrl: 'templates/_partials/loading.html',
+    noBackdrop: true,
+  });
 
-	$scope.refreshFriends();
+  $scope.refreshFriends();
 
 });
