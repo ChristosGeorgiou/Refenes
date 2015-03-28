@@ -1,17 +1,25 @@
 <ion-view view-title="Refenes">
-  <ion-content class="start-screen" scroll="false">
-    <div ng-show="loading">
-      <ion-spinner class="spinner-stable"></ion-spinner>
-      <br>
-      <span ng-bind="status"></span>
-    </div>
-    <div class="start-error" ng-hide="loading">
-      <i class="icon ion-alert-circled"></i>
-      <br>
-      <span ng-bind-html="error"></span><br>
-      <button class="button button-energized button-outline button-block" ng-click="initApp()">
-        Retry</button>
-      <span class="info" ng-bind-html="info"></span>
+  <ion-content class="padding start-screen" scroll="false">
+    <div class="row">
+      <div class="col">
+        <div class="start-screen-header">reφenes</div>
+        <div class="start-view">
+          <div ng-show="loading">
+            <ion-spinner class="spinner-stable"></ion-spinner>
+            <br>
+            <span ng-bind-html="status"></span>
+          </div>
+          <div class="start-error" ng-hide="loading">
+            <i class="icon ion-alert-circled"></i>
+            <br>
+            <span ng-bind-html="error"></span>
+            <br>
+            <button class="button button-energized button-outline button-block" ng-click="initApp()">
+              Retry</button>
+            <span class="info" ng-bind-html="info"></span>
+          </div>
+        </div>
+      </div>
     </div>
 
   </ion-content>

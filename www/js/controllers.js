@@ -1,54 +1,53 @@
 angular.module('refenes.controllers', [])
 
-.controller('StartCtrl', function($scope, $config, $timeout, $state, $db,  $ionicHistory) {
+.controller('StartCtrl', function($scope, $config, $timeout, $state, $ionicHistory, $db) {
+
   $ionicHistory.clearHistory();
 
-  $scope.initUser = function() {
-    $scope.status = "DEST CONFIG...";
-    $db.set("_user", false);
-    $scope.loading = true;
-    $scope.status = "Checking User...";
-
-    if ($config.user()) {
-      $timeout(function() {
-        $scope.status = "Logged in!";
-        //$state.go('app.notes');
-      }, 1000);
-    } else {
-      $timeout(function() {
-        $scope.status = "User not found...";
-        $state.go('login');
-      }, 1000);
-    }
-
-  };
-
   $scope.initApp = function() {
-    $scope.status = "DEST CONFIG...";
-    $db.set("_config", false);
+
+    //####
+    $scope.status = "FORCEINIT";
+    $db.set("_settings", false);
+    $db.set("_user", false);
+    //####
+
     $scope.loading = true;
     $scope.status = "Loading...";
 
-    $config
-      .init($scope)
-      .then(function(config) {
-        $scope.initUser();
+    if (!$config.settings) {
+      $scope.status = "Loading Settings<br>Please wait...";
+      $config.load_settings($scope).then(function(){
+        $state.go('login');
       }, function(reason) {
         $scope.loading = false;
         $scope.error = reason.msg;
         $scope.info = reason.info;
       });
+    }
+
   };
 
   $scope.initApp();
 
 })
 
-.controller('LoginCtrl', function($scope, $config, $timeout, $state, $db) {
+.controller('LoginCtrl', function($scope, $config , $state, $ionicHistory) {
+  $ionicHistory.clearHistory();
 
   $config.validate(["config"], function() {
     $state.go('start');
   });
+
+  if ($config.user()) {
+    $state.go('app.notes');
+  }
+
+  $scope.credientials = {};
+  $scope.login = function() {
+    console.log("credientials", $scope.credientials);
+    $state.go('app.notes');
+  };
 
 })
 

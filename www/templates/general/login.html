@@ -1,17 +1,19 @@
 <ion-view view-title="Login">
   <ion-content class="padding start-screen" scroll="false">
     <div class="row">
-      <div class="col login-form">
-        <div class="login-header">Sign in</div>
-        <div class="list">
-          <label class="item item-input">
-            <input type="text" placeholder="Username" ng-model="data.username">
-          </label>
-          <label class="item item-input">
-            <input type="password" placeholder="Password" ng-model="data.password">
-          </label>
+      <div class="col">
+        <div class="start-screen-header">reφenes</div>
+        <div class="login-form">
+          <div class="list">
+            <label class="item item-input">
+              <input type="text" placeholder="Username" ng-model="data.username">
+            </label>
+            <label class="item item-input">
+              <input type="password" placeholder="Password" ng-model="data.password">
+            </label>
+          </div>
+          <button class="button button-block button-outline button-balanced" ng-click="login()">Login</button>
         </div>
-        <button class="button button-block button-outline button-balanced" ng-click="login()">Login</button>
       </div>
     </div>
   </ion-content>

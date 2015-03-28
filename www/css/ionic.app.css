@@ -7746,12 +7746,19 @@ pre {
   align-items: center; }
   .start-screen.padding {
     padding: 20%; }
-  .start-screen .login-form .login-header {
+  .start-screen .start-screen-header {
     text-transform: uppercase;
-    font-size: 3em;
+    font-size: 2.5em;
     margin: 0 0 15px;
     text-shadow: 1px 1px 0 #111;
     color: #555555; }
+  .start-screen .start-view {
+    color: #555555; }
+    .start-screen .start-view .spinner svg {
+      width: 38px;
+      height: 38px;
+      stroke: #555555;
+      fill: #555555; }
   .start-screen .login-form .item-input {
     background: transparent;
     border-width: 0 0 1px 0;
