@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
-    <link href="assets/css/ionic.app.css" rel="stylesheet">
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+<html ng-app="refenes">
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-    <script src="scripts/main.js"></script>
-  </head>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title></title>
+	<link href="assets/css/ionic.app.css" rel="stylesheet">
+	<script src="lib/ionic/js/ionic.bundle.js"></script>
 
-  <body ng-app="refenes">
-    <ion-nav-view></ion-nav-view>
+	<!-- cordova script (this will be a 404 during development) -->
+	<script src="cordova.js"></script>
 
-    <div class="footer">
-      Created by <a href="#" onclick="window.open('http://christosgeorgiou.gr', '_system', 'location=yes'); return false;">CG</a></span>
-    </div>
-  </body>
+	<!-- inject:js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/services/services.js"></script>
+	<script src="scripts/controllers/start.js"></script>
+	<script src="scripts/controllers/settings.js"></script>
+	<script src="scripts/controllers/notes.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/login.js"></script>
+	<script src="scripts/controllers/help.js"></script>
+	<script src="scripts/controllers/groups.js"></script>
+	<script src="scripts/controllers/friends.js"></script>
+	<!-- endinject -->
+</head>
+
+<body>
+	<ion-nav-view></ion-nav-view>
+
+	<div class="footer">
+		Created by <a href="#" onclick="window.open('http://christosgeorgiou.gr', '_system', 'location=yes'); return false;">CG</a></span>
+	</div>
+</body>
+
 </html>

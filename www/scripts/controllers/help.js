@@ -1,24 +1,24 @@
-angular.module('refenes.controllers', [])
+angular.module('refenes.controllers')
 
 .controller('HelpCtrl', function($scope, $ionicModal) {
 
-  $ionicModal.fromTemplateUrl('templates/_partials/help.html', {
-      scope: $scope
-    })
-    .then(function(modal) {
-      $scope.helpModal = modal;
-    });
+	$ionicModal.fromTemplateUrl('templates/_partials/help.html', {
+			scope: $scope
+		})
+		.then(function(modal) {
+			$scope.helpModal = modal;
+		});
 
-  $scope.showHelpModal = function() {
-    $scope.helpModal.show();
-  };
+	$scope.showHelpModal = function() {
+		$scope.helpModal.show();
+	};
 
-  $scope.hideHelpModal = function() {
-    $scope.helpModal.hide();
-  };
+	$scope.hideHelpModal = function() {
+		$scope.helpModal.hide();
+	};
 
-  $scope.$on('$destroy', function() {
-    $scope.helpModal.remove();
-  });
+	$scope.$on('$destroy', function() {
+		$scope.helpModal.remove();
+	});
 
 });

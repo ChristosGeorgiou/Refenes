@@ -1,18 +1,19 @@
 {
   "name": "Refenes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The individual share in a collective cost for food, entertainment , etc",
   "private": true,
   "dependencies": {
     "gulp": "*",
+    "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "*",
     "gulp-minify-css": "*",
     "gulp-rename": "*",
-    "gulp-sass": "*",
-    "gulp-browserify":"*"
+    "gulp-sass": "*"
   },
   "devDependencies": {
     "bower": "*",
+    "gulp-inject": "^1.2.0",
     "gulp-util": "*",
     "shelljs": "*"
   }
