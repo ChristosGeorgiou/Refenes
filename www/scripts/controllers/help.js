@@ -2,7 +2,7 @@ angular.module('refenes.controllers')
 
 .controller('HelpCtrl', function($scope, $ionicModal) {
 
-	$ionicModal.fromTemplateUrl('templates/_partials/help.html', {
+	$ionicModal.fromTemplateUrl('views/_partials/help.html', {
 			scope: $scope
 		})
 		.then(function(modal) {

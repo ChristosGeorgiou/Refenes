@@ -18,8 +18,9 @@ angular.module('refenes.controllers')
 	$scope.newNote = function() {};
 
 	$ionicLoading.show({
-		templateUrl: 'templates/_partials/loading.html',
+		templateUrl: 'views/_partials/loading.html',
 		noBackdrop: true,
 	});
+	
 	$scope.refreshNotes();
 });
