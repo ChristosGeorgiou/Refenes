@@ -104,7 +104,7 @@ angular.module('refenes.services', [])
 
 .factory('$remote', function($http) {
 
-  var _server = "http://192.168.1.143:9999/";
+  var _server = "http://192.168.1.133:9999/";
 
   return {
     fetch: function(item) {

@@ -15,65 +15,6 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-table {
-  background-color: transparent;
-  margin-bottom: 15px !important; }
-
-caption {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  text-align: left; }
-
-th {
-  text-align: left; }
-
-.table {
-  width: 100%;
-  max-width: 100%; }
-  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
-    padding: 8px;
-    vertical-align: top;
-    border-top: 1px solid #ddd; }
-  .table > thead > tr > th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #ddd; }
-  .table > caption + thead > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > th, .table > thead:first-child > tr:first-child > td {
-    border-top: 0; }
-  .table > tbody + tbody {
-    border-top: 2px solid #ddd; }
-
-.table-condensed > thead > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > tfoot > tr > td {
-  padding: 5px; }
-
-.table-bordered {
-  border: 1px solid #ddd; }
-  .table-bordered > thead > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > tfoot > tr > td {
-    border: 1px solid #ddd; }
-  .table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
-    border-bottom-width: 2px; }
-
-.table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #f9f9f9; }
-
-.table-advanced > thead > tr > th, .table-advanced > thead > tr > td {
-  background-color: #e0e0e0;
-  font-weight: bold !important;
-  border-bottom: none; }
-.table-advanced > tbody > tr > th {
-  background-color: #e0e0e0;
-  text-align: right !important;
-  font-weight: bold !important; }
-
-table col[class*="col-"] {
-  position: static;
-  float: none;
-  display: table-column; }
-
-table td[class*="col-"], table th[class*="col-"] {
-  position: static;
-  float: none;
-  display: table-cell; }
-
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -7662,56 +7603,6 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-.title.title-left.header-item {
-  left: 30px !important; }
-
-.bar.bar-dark .title {
-  color: #CCC; }
-  .bar.bar-dark .title small {
-    font-size: 0.7em;
-    opacity: 0.6; }
-
-.menu-left {
-  background: #222; }
-
-.menu-left .item-complex {
-  border-color: #2f2f2f; }
-
-.menu-left .item-complex .item-content {
-  background: #222;
-  color: #CCC; }
-
-.menu-left .item-complex h2 {
-  color: #CCC; }
-
-.menu-left .item-complex p {
-  color: #6f6f6f; }
-
-.list-notes .item-complex .badge {
-  right: 10px;
-  font-size: 1.4em;
-  padding: 0.5em; }
-
-.list-notes .item-complex .item-content {
-  padding-right: 130px; }
-
-.action-sheet {
-  margin: 0 15px !important; }
-
-.action-sheet .button {
-  padding: 0 15px;
-  border-bottom: solid 1px #eee !important; }
-
-code {
-  background: #eee;
-  padding: 2px; }
-
-pre {
-  background: #eee;
-  border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 10px; }
-
 .start-screen {
   background: #222;
   color: #CCC;
@@ -7782,6 +7673,115 @@ pre {
       margin-top: 5px;
       color: #555555;
       display: block; }
+
+table {
+  background-color: transparent;
+  margin-bottom: 15px !important; }
+
+caption {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: left; }
+
+th {
+  text-align: left; }
+
+.table {
+  width: 100%;
+  max-width: 100%; }
+  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+    padding: 8px;
+    vertical-align: top;
+    border-top: 1px solid #ddd; }
+  .table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd; }
+  .table > caption + thead > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > th, .table > thead:first-child > tr:first-child > td {
+    border-top: 0; }
+  .table > tbody + tbody {
+    border-top: 2px solid #ddd; }
+
+.table-condensed > thead > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > tfoot > tr > td {
+  padding: 5px; }
+
+.table-bordered {
+  border: 1px solid #ddd; }
+  .table-bordered > thead > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > tfoot > tr > td {
+    border: 1px solid #ddd; }
+  .table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+    border-bottom-width: 2px; }
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9; }
+
+.table-advanced > thead > tr > th, .table-advanced > thead > tr > td {
+  background-color: #e0e0e0;
+  font-weight: bold !important;
+  border-bottom: none; }
+.table-advanced > tbody > tr > th {
+  background-color: #e0e0e0;
+  text-align: right !important;
+  font-weight: bold !important; }
+
+table col[class*="col-"] {
+  position: static;
+  float: none;
+  display: table-column; }
+
+table td[class*="col-"], table th[class*="col-"] {
+  position: static;
+  float: none;
+  display: table-cell; }
+
+.title.title-left.header-item {
+  left: 30px !important; }
+
+.bar.bar-dark .title {
+  color: #CCC; }
+  .bar.bar-dark .title small {
+    font-size: 0.7em;
+    opacity: 0.6; }
+
+.menu-left {
+  background: #222; }
+
+.menu-left .item-complex {
+  border-color: #2f2f2f; }
+
+.menu-left .item-complex .item-content {
+  background: #222;
+  color: #CCC; }
+
+.menu-left .item-complex h2 {
+  color: #CCC; }
+
+.menu-left .item-complex p {
+  color: #6f6f6f; }
+
+.list-notes .item-complex .badge {
+  right: 10px;
+  font-size: 1.4em;
+  padding: 0.5em; }
+
+.list-notes .item-complex .item-content {
+  padding-right: 130px; }
+
+.action-sheet {
+  margin: 0 15px !important; }
+
+.action-sheet .button {
+  padding: 0 15px;
+  border-bottom: solid 1px #eee !important; }
+
+code {
+  background: #eee;
+  padding: 2px; }
+
+pre {
+  background: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px; }
 
 .footer {
   position: absolute;

@@ -1,32 +1,49 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var sh = require('shelljs');
+var gulp = require('gulp'),
+  concat = require('gulp-concat'),
+  browserify = require('gulp-browserify'),
+  gutil = require('gulp-util'),
+  bower = require('bower'),
+  concat = require('gulp-concat'),
+  sass = require('gulp-sass'),
+  minifyCss = require('gulp-minify-css'),
+  rename = require('gulp-rename'),
+  sh = require('shelljs');
+  //includeSources = require('gulp-include-source');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  scripts: ['./www/scripts/**/*.js']
 };
 
-gulp.task('default', ['sass']);
+var env = process.env.NODE_ENV || 'development';
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
     .pipe(sass())
-    .pipe(gulp.dest('./www/css/'))
+    .pipe(gulp.dest('./www/assets/css/'))
     // .pipe(minifyCss({
     //   keepSpecialComments: 0
     // }))
     // .pipe(rename({ extname: '.min.css' }))
-    // .pipe(gulp.dest('./www/css/'))
+    // .pipe(gulp.dest('./www/assets/css/'))
     .on('end', done);
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+gulp.task('scripts', function() {
+  gulp.src(paths.scripts)
+    .pipe(concat('main.js'))
+    .pipe(browserify())
+    .pipe(gulp.dest('./www/scripts/main.js'));
+    //.pipe(gulpif(env === 'production', uglify()))
+    //.pipe(gulp.dest(outputDir + 'js'))
+    //.pipe(plumber())
+    //.pipe(notify({
+    //  message: "Scripts tasks have been completed!"
+    //}));
+
+  // return gulp.src( paths.template )
+  //   .pipe( includeSources() )
+  //   .pipe( gulp.dest('./www') );
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -48,3 +65,13 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+gulp.task('watch', function() {
+  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.scripts, ['scripts']);
+});
+
+gulp.task('default', [
+  "sass",
+  "scripts"
+]);

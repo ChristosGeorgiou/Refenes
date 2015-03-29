@@ -1,4 +1,7 @@
-angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
+angular.module('refenes', [
+  'ionic',
+  'refenes.controllers',
+  'refenes.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

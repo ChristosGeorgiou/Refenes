@@ -8,7 +8,8 @@
     "gulp-concat": "*",
     "gulp-minify-css": "*",
     "gulp-rename": "*",
-    "gulp-sass": "*"
+    "gulp-sass": "*",
+    "gulp-browserify":"*"
   },
   "devDependencies": {
     "bower": "*",
