@@ -1,31 +1,37 @@
 angular.module('refenes.controllers')
 
-.controller('StartCtrl', function($scope, $config, $timeout, $state, $ionicHistory, $db) {
+.controller('StartCtrl', function($scope, $config, $q, $timeout, $ionicHistory, $state) {
 
 	$ionicHistory.clearHistory();
 
 	$scope.initApp = function() {
 
-		//####
-		$scope.status = "FORCEINIT";
-		$db.delete("_settings");
-		$db.delete("_user");
-		//####
+		var config = $config.init(),
+			connectivity = $config.connectivity()
 
 		$scope.loading = true;
 		$scope.status = "Loading...";
 
-		if (!$config.settings) {
-			$scope.status = "Loading Settings<br>Please wait...";
-			$config.setup($scope).then(function() {
-				$state.go('login');
-			}, function(reason) {
-				$scope.loading = false;
-				$scope.error = reason.msg;
-				$scope.info = reason.info;
-			});
-		}
+		$q.all([config, connectivity])
+			.then(function(results) {
 
+				var _error = false;
+				angular.forEach(results, function(result, key) {
+					if (result.error) {
+						$scope.loading = false;
+						$scope.error = result;
+						_error = true;
+						return;
+					} else {
+						console.log(result);
+					}
+				});
+
+				if (!_error) {
+					$state.go('login');
+				}
+
+			});
 	};
 
 	$scope.initApp();

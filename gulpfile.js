@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
-	inject = require('gulp-inject');
-gutil = require('gulp-util'),
+	inject = require('gulp-inject'),
+	gutil = require('gulp-util'),
 	bower = require('bower'),
 	sass = require('gulp-sass'),
 	minifyCss = require('gulp-minify-css'),
@@ -34,7 +34,7 @@ gulp.task('scripts', function() {
 		.pipe(angularFilesort());
 
 	gulp.src('./www/index.html')
-		.pipe(inject(sources,{
+		.pipe(inject(sources, {
 			relative: true
 		}))
 		.pipe(gulp.dest('./www'));
