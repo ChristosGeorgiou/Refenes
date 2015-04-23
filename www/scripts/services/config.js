@@ -26,10 +26,8 @@ angular.module('refenes.services')
 		},
 
 		connectivity: function() {
-			var config = $db.getObject("config");
-
 			return $http
-				.get(config.server)
+				.get($db.getObject("config").server)
 				.then(function() {
 					return {
 						error: false,
@@ -92,51 +90,6 @@ angular.module('refenes.services')
 
 		},
 
-		user: function() {
-
-			return $db.getObject("_user") || false;
-
-		},
-
-		login: function($scope) {
-
-			//TODO REAL LOGIN
-
-			var TEMP_USER = {
-				"userid": 999,
-				"username": "christos",
-			};
-
-			$scope.status = "Loading data<br>Please wait...";
-
-			$db.setObject("_user", TEMP_USER);
-			$remote
-				.fetch(TEMP_USER.username)
-				.then(function(userdb) {
-					if (userdb.error) {
-						deferred.reject({
-							msg: 'User not found',
-							info: userdb.data,
-						});
-					} else {
-
-						angular.forEach(userdb.data, function(data, index) {
-							$db.setObject(index, data);
-						});
-
-						deferred.resolve();
-					}
-				});
-
-
-			return deferred.promise;
-		},
-
-		logoff: function() {
-
-			$db.delete("_user");
-
-		}
 	};
 
 })
