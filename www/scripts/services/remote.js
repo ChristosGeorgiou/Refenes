@@ -1,11 +1,11 @@
 angular.module('refenes.services')
 
-.factory('$remote', function($http) {
+.factory('$remote', function($http, $q, $http, $timeout ) {
+
+	var deferred = $q.defer();
 
 	return {
-		login: function(credentials) {
-
-		},
+		
 		get: function(method,params) {
 			return $http
 				.get([$db.getObject("config").server,method,params.join("/")].join("/"))

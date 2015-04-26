@@ -4,7 +4,11 @@ angular.module('refenes.controllers')
 
 	$ionicHistory.clearHistory();
 
-	$scope.credientials = {};
+	$scope.credientials = {
+		identity:"christos",
+		password:"1234",
+	};
+
 	$scope.login = function() {
 		$scope.loading = true;
 		$scope.status = "Sign in<br>Please wait...";
@@ -13,9 +17,9 @@ angular.module('refenes.controllers')
 				$state.go('app.notes');
 			}, function(reason) {
 				$scope.loading = false;
-				$scope.error = reason.msg;
+				$scope.error = reason;
 			});
 
 	};
 
-})
+});

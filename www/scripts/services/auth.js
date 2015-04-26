@@ -2,56 +2,54 @@ angular.module('refenes.services')
 
 .factory('$auth', function($db, $remote, $q, $http, $timeout) {
 
-	var deferred = $q.defer();
+  var deferred = $q.defer();
 
-	return {
+  return {
 
-		user: function() {
+    login: function(credentials) {
 
-			return $db.getObject("_user") || false;
+      $db.delete("_token");
 
-		},
+      // TODO REMOTE CALL
+      // $http
+      //   .post('_server_login', credentials)
+      //   .then(function(response) {
+      //       $db.setObject("_token", response.data.access_token);
+      //       deferred.resolve();
+      //     },
+      //     function(response) {
+      //       deferred.reject({
+      //         message: "Failed to authenticate",
+      //         details: "Please try again",
+      //       });
+      //     });
 
-		login: function(credentials) {
+      $timeout(function() {
 
-			$remote
-				.login(credentials)
-				.then(function(user) {
-					if (userdb.error) {
-						
-						var TEMP_USER = {
-							"userid": 999,
-							"username": "christos",
-						};
+        deferred.resolve({
+        	error: false,
+        	data: {
+        		access_token: "e72e16c7e42f292c6912e7710c838347ae178b4a",
+        	},
+        });
+				//
+        // deferred.reject({
+        //   message: "Failed to authenticate",
+        //   details: "Please try again",
+        // });
 
-						$db.setObject("_user", TEMP_USER);
+      }, 3000);
 
+      return deferred.promise;
 
+    },
 
-						deferred.reject({
-							msg: 'User not found',
-							info: userdb.data,
-						});
-					} else {
+    logoff: function() {
 
-						angular.forEach(userdb.data, function(data, index) {
-							$db.setObject(index, data);
-						});
+      $db.delete("_user");
 
-						deferred.resolve();
-					}
-				});
+    }
 
+  };
 
-			return deferred.promise;
-		},
-
-		logoff: function() {
-
-			$db.delete("_user");
-
-		}
-
-	};
-
-})
+});

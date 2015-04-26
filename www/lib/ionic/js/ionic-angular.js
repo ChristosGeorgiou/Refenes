@@ -2,7 +2,7 @@
  * Copyright 2014 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.0.0-rc.4-nightly-1250
+ * Ionic, v1.0.0-rc.4-nightly-1257
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -1792,6 +1792,14 @@ IonicModule
 
   });
 
+  // Windows Phone
+  // -------------------------
+  setPlatformConfig('windowsphone', {
+    scrolling: {
+      jsScrolling: false
+    }
+  });
+
 
   provider.transitions = {
     views: {},
@@ -1840,7 +1848,7 @@ IonicModule
 
     function setStyles(ctrl, opacity, titleX, backTextX) {
       var css = {};
-      css[ionic.CSS.TRANSITION_DURATION] = d.shouldAnimate ? '' : 0;
+      css[ionic.CSS.TRANSITION_DURATION] = d.shouldAnimate ? '' : '0ms';
       css.opacity = opacity === 1 ? '' : opacity;
 
       ctrl.setCss('buttons-left', css);
@@ -2055,7 +2063,14 @@ IonicModule
   provider.$get = function() {
     return provider;
   };
-});
+})
+// Fix for URLs in Cordova apps on Windows Phone
+// http://blogs.msdn.com/b/msdn_answers/archive/2015/02/10/
+// running-cordova-apps-on-windows-and-windows-phone-8-1-using-ionic-angularjs-and-other-frameworks.aspx
+.config(['$compileProvider', function($compileProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|ghttps?|ms-appx|x-wmapp0):/);
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|ms-appx|x-wmapp0):|data:image\//);
+}]);
 
 
 var LOADING_TPL =
@@ -9333,6 +9348,9 @@ function RepeatManagerFactory($rootScope, $window, $$rAF) {
  * You can implement pull-to-refresh with the {@link ionic.directive:ionRefresher}
  * directive, and infinite scrolling with the {@link ionic.directive:ionInfiniteScroll}
  * directive.
+ *
+ * If there is any dynamic content inside the ion-content, be sure to call `.resize()` with {@link ionic.service:$ionicScrollDelegate}
+ * after the content as been added.
  *
  * Be aware that this directive gets its own child scope. If you do not understand why this
  * is important, you can read [https://docs.angularjs.org/guide/scope](https://docs.angularjs.org/guide/scope).

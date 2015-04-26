@@ -4,15 +4,24 @@
       <div class="col">
         <div class="start-screen-header">reφenes</div>
         <div class="login-form">
-          <div class="list">
-            <label class="item item-input">
-              <input type="text" placeholder="Username" ng-model="credientials.username">
-            </label>
-            <label class="item item-input">
-              <input type="password" placeholder="Password" ng-model="credientials.password">
-            </label>
+          <div ng-show="loading">
+            <h2><ion-spinner class="spinner-stable"></ion-spinner></h2>
+            <h4 ng-bind-html="status"></h4>
           </div>
-          <button class="button button-block button-outline button-balanced" ng-click="login()">Login</button>
+          <div ng-hide="loading" class="list">
+            <div class="list">
+              <label class="item item-input">
+                <input type="text" placeholder="Username or Email" ng-model="credientials.identity">
+              </label>
+              <label class="item item-input">
+                <input type="password" placeholder="Password" ng-model="credientials.password">
+              </label>
+            </div>
+            <button class="button button-block button-outline button-balanced" ng-click="login()">Login</button>
+            
+            <h4 ng-bind-html="error.message"></h4>
+            <h6 ng-bind-html="error.details"></h6>
+          </div>
         </div>
       </div>
     </div>

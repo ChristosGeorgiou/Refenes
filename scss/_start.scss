@@ -74,8 +74,8 @@
   font-size: 40px;
  }
  .start-error {
-  h4 {
-   color: $energized;
+  *{
+    color: $energized;
   }
   .info {
    padding-top: 4px;

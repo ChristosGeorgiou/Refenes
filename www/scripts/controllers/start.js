@@ -4,15 +4,16 @@ angular.module('refenes.controllers')
 
 	$ionicHistory.clearHistory();
 
-	$scope.initApp = function() {
+	$scope.init = function() {
 
-		var config = $config.init(),
-			connectivity = $config.connectivity()
+		var config = $config.init();
+		//var connectivity = $config.connectivity();
 
 		$scope.loading = true;
 		$scope.status = "Loading...";
 
-		$q.all([config, connectivity])
+		//$q.all([config, connectivity])
+		$q.all([config])
 			.then(function(results) {
 
 				var _error = false;
@@ -34,6 +35,6 @@ angular.module('refenes.controllers')
 			});
 	};
 
-	$scope.initApp();
+	$scope.init();
 
 });

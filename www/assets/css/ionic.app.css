@@ -7504,6 +7504,9 @@ a.button {
   .collection-repeat-after-container.horizontal {
     display: inline-block; }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+  display: none !important; }
+
 /**
  * Platform
  * --------------------------------------------------
@@ -7734,7 +7737,7 @@ a.button {
         color: #3c3c3c; }
   .start-screen .icon {
     font-size: 40px; }
-  .start-screen .start-error h4 {
+  .start-screen .start-error * {
     color: #ffc900; }
   .start-screen .start-error .info {
     padding-top: 4px;
