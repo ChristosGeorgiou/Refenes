@@ -1,4 +1,6 @@
-# Refenes.Client
+# Refenes Mobile
+
+For the main project see https://github.com/ChristosGeorgiou/refenes.application
 
 ## Schema
 
@@ -8,14 +10,6 @@
 		details [accounts,amount]
 	circles [userAccount,otherAccount,isBuddy]
 	parties [date,description,accounts]
-
-## Technologies
-
-- Mobile client builded with the `IonicFramework`
-- Webservice with `OAuth2` builded with `Symfony2`
-
-
-## Client
 
 ### Special Functions
 
