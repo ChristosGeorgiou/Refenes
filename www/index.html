@@ -5,28 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 	<title></title>
-	<link href="assets/css/ionic.app.css" rel="stylesheet">
-	<script src="lib/ionic/js/ionic.bundle.js"></script>
-
-	<!-- cordova script (this will be a 404 during development) -->
-	<script src="cordova.js"></script>
-
-	<!-- inject:js -->
-	<script src="scripts/app.js"></script>
-	<script src="scripts/services/services.js"></script>
-	<script src="scripts/services/remote.js"></script>
-	<script src="scripts/services/db.js"></script>
-	<script src="scripts/services/config.js"></script>
-	<script src="scripts/services/auth.js"></script>
-	<script src="scripts/controllers/start.js"></script>
-	<script src="scripts/controllers/settings.js"></script>
-	<script src="scripts/controllers/notes.js"></script>
-	<script src="scripts/controllers/main.js"></script>
-	<script src="scripts/controllers/login.js"></script>
-	<script src="scripts/controllers/help.js"></script>
-	<script src="scripts/controllers/groups.js"></script>
-	<script src="scripts/controllers/friends.js"></script>
-	<!-- endinject -->
+	<link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -35,6 +14,31 @@
 	<div class="footer">
 		Created by <a href="#" onclick="window.open('http://christosgeorgiou.gr', '_system', 'location=yes'); return false;">CG</a></span>
 	</div>
+
+	<script src="lib/ionic/js/ionic.bundle.js"></script>
+
+	<!-- cordova script (this will be a 404 during development) -->
+	<script src="cordova.js"></script>
+
+	<!-- inject:js -->
+	<script src="src/app.js"></script>
+	<script src="src/services/services.js"></script>
+	<script src="src/services/remote.js"></script>
+	<script src="src/services/helper.js"></script>
+	<script src="src/services/db.js"></script>
+	<script src="src/services/config.js"></script>
+	<script src="src/services/auth.js"></script>
+	<script src="src/controllers/start.js"></script>
+	<script src="src/controllers/settings.js"></script>
+	<script src="src/controllers/notes.js"></script>
+	<script src="src/controllers/main.js"></script>
+	<script src="src/controllers/login.js"></script>
+	<script src="src/controllers/help.js"></script>
+	<script src="src/controllers/groups.js"></script>
+	<script src="src/controllers/friends.js"></script>
+	<script src="src/constants/settings.js"></script>
+	<!-- endinject -->
+
 </body>
 
 </html>

@@ -6,9 +6,9 @@
         <div class="login-form">
           <div ng-show="loading">
             <h2><ion-spinner class="spinner-stable"></ion-spinner></h2>
-            <h4 ng-bind-html="status"></h4>
+            <h4>Please wait...</h4>
           </div>
-          <div ng-hide="loading" class="list">
+          <div ng-hide="loading">
             <div class="list">
               <label class="item item-input">
                 <input type="text" placeholder="Username or Email" ng-model="Credientials.Identity">
@@ -17,10 +17,15 @@
                 <input type="password" placeholder="Password" ng-model="Credientials.Password">
               </label>
             </div>
-            <button class="button button-block button-outline button-balanced" ng-click="login()">Login</button>
+            <button class="button button-block button-outline button-balanced" ng-click="Login()">Login</button>
 
             <h4 ng-bind-html="error.message"></h4>
             <h6 ng-bind-html="error.details"></h6>
+
+            <div class="divider">OR</div>
+            <button class="button button-block button-outline button-balanced" ui-sref="auth.register">Register</button>
+            <button class="button button-block button-outline button-balanced" ng-click="Offline()">Offline</button>
+
           </div>
         </div>
       </div>

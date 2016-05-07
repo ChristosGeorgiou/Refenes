@@ -10,7 +10,7 @@
             <span ng-bind-html="status"></span>
           </div>
           <div class="start-error" ng-hide="loading">
-            <h2><i class="icon ion-alert-circled"></i></h2>
+            <h2><i class="icon" ng-class="error.icon"></i></h2>
             <h4 ng-bind-html="error.message"></h4>
             <h6 ng-bind-html="error.details"></h6>
             <button class="button button-energized button-outline button-block" ng-click="initApp()">

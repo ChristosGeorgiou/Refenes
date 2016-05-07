@@ -17,10 +17,11 @@ $dark:                            #444 !default;
 $color-first: #886aea;
 $color-second: #222;
 $dark: $color-second !default;
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../../lib/ionic/fonts" !default;
-// Include all of Ionic
 
+// Include all of Ionic
 @function set-text($color) {
   @if (lightness($color) > 50) {
     @return #222;
@@ -29,12 +30,9 @@ $ionicons-font-path: "../../lib/ionic/fonts" !default;
     @return #CCC;
   }
 }
-
-@import
-"www/lib/ionic/scss/ionic",
-"scss/start",
-"scss/tables";
-
+@import "www/lib/ionic/scss/ionic";
+@import "start";
+@import "tables";
 .title.title-left.header-item {
   left: 30px !important;
 }

@@ -1,8 +1,18 @@
+'use strict';
+
 angular.module('refenes.controllers',[])
 angular.module('refenes.services',[])
-angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
+angular.module('refenes', [
+'ionic',
+'ngResourse',
+'refenes.auth',
+'refenes.dashboard',
+'refenes.tabs',
+'refenes.controllers',
+'refenes.services'
+])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, Client, Settings) {
 	$ionicPlatform.ready(function() {
 		if (window.cordova && window.cordova.plugins.Keyboard) {
 			window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -11,39 +21,23 @@ angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
 			window.StatusBar.styleDefault();
 		}
 	});
+
+	Client.Init();
+	angular.Settings = Settings;
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
 
-		.state('start', {
-		url: "/start",
-		templateUrl: "views/general/start.html",
-		controller: 'StartCtrl',
-	})
-
-	.state('login', {
-		url: "/login",
-		templateUrl: "views/general/login.html",
-		controller: 'LoginCtrl',
-	})
+		.state('auth', {
+			abstract: true,
+			templateUrl: "src/layouts/empty.html",
+		})
 
 	.state('app', {
-		url: "/app",
 		abstract: true,
-		templateUrl: "views/_layouts/main.html",
-		controller: 'AppCtrl',
-	})
-
-	.state('app.notes', {
-		url: "/notes",
-		views: {
-			'content': {
-				templateUrl: "views/notes/notes.html",
-				controller: "NotesCtrl",
-			}
-		}
+		templateUrl: "src/layouts/default.html",
 	})
 
 	.state('app.groups', {
@@ -95,5 +89,5 @@ angular.module('refenes', ['ionic', 'refenes.controllers', 'refenes.services'])
 
 	// if none of the above states are matched, use this as the fallback
 
-	$urlRouterProvider.otherwise('/start');
+	$urlRouterProvider.otherwise('/dashboard');
 });

@@ -2,6 +2,7 @@
   "name": "Refenes",
   "private": "true",
   "dependencies": {
-    "ionic": "driftyco/ionic-bower#master"
+    "ionic": "driftyco/ionic-bower#master",
+    "angular-resource": "*"
   }
 }

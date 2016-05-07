@@ -20,7 +20,8 @@ angular.module('refenes.services')
 					return {
 						error: true,
 						message: "Configuration could not load",
-						details: response.status
+						details: response.status,
+						icon: "ion-gear-b",
 					};
 				});
 		},
@@ -36,8 +37,9 @@ angular.module('refenes.services')
 				}, function() {
 					return {
 						error: true,
-						message: "Connection with server failed",
-						details: "Check your internet connectivity"
+						message: "No Connection",
+						details: "Check your internet connectivity",
+						icon: "ion-wifi"
 					};
 				});
 		},
