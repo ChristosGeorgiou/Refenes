@@ -1,9 +1,4 @@
 /*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
 $positive:                        #387ef5 !default;
@@ -17,88 +12,86 @@ $dark:                            #444 !default;
 $color-first: #886aea;
 $color-second: #222;
 $dark: $color-second !default;
-
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../../lib/ionic/fonts" !default;
-
+$ionicons-font-path: "../../libs/ionic/fonts" !default;
 // Include all of Ionic
 @function set-text($color) {
-  @if (lightness($color) > 50) {
-    @return #222;
-  }
-  @else {
-    @return #CCC;
-  }
+     @if (lightness($color) > 50){
+        @return #222;
+    }
+    @else {
+         @return #CCC;
+    }
 }
-@import "www/lib/ionic/scss/ionic";
+@import "../www/libs/ionic/scss/ionic";
 @import "start";
 @import "tables";
 .title.title-left.header-item {
-  left: 30px !important;
+    left: 30px !important;
 }
 .bar {
-  &.bar-dark {
-    .title {
-      color: set-text($color-second);
-      small {
-        font-size: 0.7em;
-        opacity: 0.6;
-      }
+    &.bar-dark {
+        .title {
+            color: set-text($color-second);
+            small {
+                font-size: 0.7em;
+                opacity: 0.6;
+            }
+        }
     }
-  }
 }
 .menu-left {
-  background: $color-second;
+    background: $color-second;
 }
 .menu-left .item-complex {
-  border-color: lighten($color-second,5);
+    border-color: lighten($color-second,5);
 }
 .menu-left .item-complex .item-content {
-  background: $color-second;
-  color: set-text($color-second);
+    background: $color-second;
+    color: set-text($color-second);
 }
 .menu-left .item-complex h2 {
-  color: set-text($color-second);
+    color: set-text($color-second);
 }
 .menu-left .item-complex p {
-  color: lighten($color-second,30);
+    color: lighten($color-second,30);
 }
 .list-notes .item-complex .badge {
-  right: 10px;
-  font-size: 1.4em;
-  padding: 0.5em;
+    right: 10px;
+    font-size: 1.4em;
+    padding: 0.5em;
 }
 .list-notes .item-complex .item-content {
-  padding-right: 130px;
+    padding-right: 130px;
 }
 .action-sheet {
-  margin: 0 15px !important;
+    margin: 0 15px !important;
 }
 .action-sheet .button {
-  padding: 0 15px;
-  border-bottom: solid 1px #eee !important;
+    padding: 0 15px;
+    border-bottom: solid 1px #eee !important;
 }
 code {
-  background: #eee;
-  padding: 2px;
+    background: #eee;
+    padding: 2px;
 }
 pre {
-  background: #eee;
-  border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 10px;
+    background: #eee;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 0 0 4px;
-  color: lighten($color-second,10);
-  z-index: 100;
-  text-align: center;
-  a {
-    color: lighten($color-second,20);
-    text-decoration: none;
-  }
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 0 4px;
+    color: lighten($color-second,10);
+    z-index: 100;
+    text-align: center;
+    a {
+        color: lighten($color-second,20);
+        text-decoration: none;
+    }
 }

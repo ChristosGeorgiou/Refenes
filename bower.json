@@ -1,8 +1,12 @@
 {
-  "name": "Refenes",
-  "private": "true",
+  "name": "refenes",
+  "private": true,
   "dependencies": {
     "ionic": "driftyco/ionic-bower#master",
-    "angular-resource": "*"
+    "angular-resource": "*",
+    "underscore": "^1.8.3"
+  },
+  "resolutions": {
+    "angular": "1.5.5"
   }
 }

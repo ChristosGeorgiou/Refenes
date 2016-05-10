@@ -1,47 +1,56 @@
-var env = process.env.NODE_ENV || 'development';
-
 var gulp = require('gulp');
-var inject = require('gulp-inject');
-var gutil = require('gulp-util');
-var bower = require('bower');
 var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sh = require('shelljs');
-var angularFilesort = require('gulp-angular-filesort');
+var ngfilesort = require('gulp-angular-filesort');
+var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate');
+var concat = require('gulp-concat');
+var sourcemaps = require('gulp-sourcemaps');
+var minify = require('gulp-clean-css');
 
 var paths = {
-  sass: ['./scss/**/*.scss'],
-  scripts: ['./www/src/**/*.js']
+    sass: ['./scss/**/*.scss'],
+    app: ['./www/src/**/*.js']
 };
 
-gulp.task('sass', function(done) {
-  gulp.src(paths.sass)
-    .pipe(sass())
-    .pipe(gulp.dest('./www/assets/css/'))
-    .on('end', done);
-});
-
-gulp.task('scripts', function() {
-  var sources = gulp.src(paths.scripts, {
-      read: true
-    })
-    .pipe(angularFilesort());
-
-  gulp.src('./www/index.html')
-    .pipe(inject(sources, {
-      relative: true
-    }))
-    .pipe(gulp.dest('./www'));
-
-});
-
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.scripts, ['scripts']);
-});
-
 gulp.task('default', [
-  "sass",
-  "scripts"
+    "sass",
+    "build"
 ]);
+
+gulp.task('sass', function(done) {
+    return gulp.src(paths.sass, {
+            read: true,
+        })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(minify())
+        .pipe(rename({
+            suffix: ".min",
+            extname: ".css"
+        }))
+        .pipe(gulp.dest("./www/assets/css"));
+});
+
+gulp.task('build', function() {
+
+    return gulp.src(paths.app)
+        .pipe(ngfilesort())
+        .pipe(sourcemaps.init())
+        .pipe(concat("app.min.js", {
+            newLine: ';'
+        }))
+        .pipe(ngAnnotate({
+            add: true
+        }))
+        .pipe(uglify({
+            mangle: false
+        }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest("./www/assets/js"));
+
+});
+
+gulp.task('watch', ['sass', 'build'], function() {
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch(paths.app, ['build']);
+});
