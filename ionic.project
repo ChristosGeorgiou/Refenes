@@ -1,11 +1,7 @@
 {
-  "name": "Refenes",
-  "app_id": "632ce721",
-  "gulpStartupTasks": [
-    "watch"
-  ],
-  "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
-  ]
+    "name": "Refenes",
+    "app_id": "632ce721",
+    "gulpStartupTasks": [
+        "default"
+    ]
 }

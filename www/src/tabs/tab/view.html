@@ -1,0 +1,61 @@
+<ion-view view-title="Tab - {{vm.tab.title}}">
+
+    <ion-content>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h1>{{vm.tab.title}}</h1>
+                <p>Created {{vm.tab.created}}</p>
+            </div>
+
+            <div class="item item-text-wrap">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates veniam esse quos enim voluptatibus est optio, quam consectetur, assumenda recusandae quo vero necessitatibus repellendus repellat aliquid, commodi quaerat possimus quae.</p>
+            </div>
+
+            <a class="item item-icon-left positive" href="#">
+                <i class="icon ion-edit"></i> Edit Details & Members
+            </a>
+
+        </div>
+
+        <div class="card">
+            <div class="item item-divider">
+                Coin Balance
+            </div>
+            <div class="item">
+                Soula <span class="badge badge-assertive">- 80</span>
+            </div>
+            <div class="item">
+                Makis <span class="badge badge-balanced">0</span>
+            </div>
+            <div class="item">
+                Sakis <span class="badge badge-energized">+ 80</span>
+            </div>
+        </div>
+
+
+        <div class="card">
+
+            <div class="item item-divider">
+                Transactions
+            </div>
+
+            <a class="item item-icon-left positive" href="#">
+                <i class="icon ion-plus-circled"></i> Add Coins Transaction
+            </a>
+
+            <div class="item item-icon-right item-avatar item-highlight" ng-repeat="note in vm.tab.notes"
+              ui-sref="app.notes.note(note.id)" ng-class="{'item-highlight-balanced':note.type=='RECEIVED','item-highlight-assertive':note.type=='SEND'}">
+                <img ng-src="{{note.person.avatar}}">
+                <h2 ng-if="note.type=='RECEIVED'"><strong>{{note.person.name}}</strong> give you <strong>{{note.amount}} coins</strong></h2>
+                <h2 ng-if="note.type=='SEND'"><strong>You</strong> pay for <strong>{{note.amount}} coins</strong></h2>
+                <p>{{note.date_label}} - {{note.tab}}</p>
+                <i ng-if="note.type=='RECEIVED'" class="icon ion-log-in"></i>
+                <i ng-if="note.type=='SEND'" class="icon ion-log-out"></i>
+            </div>
+
+        </div>
+<pre class=padding>{{vm.tab|json:2}}</pre>
+    </ion-content>
+
+</ion-view>

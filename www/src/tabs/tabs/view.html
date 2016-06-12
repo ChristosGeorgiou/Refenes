@@ -1,0 +1,23 @@
+<ion-view view-title="Tabs">
+
+	<ion-content class="padding">
+
+		<ion-refresher class="spinner-stable" pulling-text="Pull to refresh" on-refresh="vm.refresh()">
+		</ion-refresher>
+
+		<button class="button button-block button-balanced" ng-click="vm.NewTab()">New Tab</button>
+
+		<div ng-if="!vm.tabs">No tabs were found</div>
+
+		<div class="list" ng-if="vm.tabs">
+
+			<div class="item" ng-repeat="tab in vm.tabs" ui-sref="app.tab({id:tab.id})">
+				<h2>{{tab.title}}</h2>
+				<p>{{tab.created}}</p>
+			</div>
+
+		</div>
+
+	</ion-content>
+
+</ion-view>

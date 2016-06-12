@@ -1,28 +1,22 @@
-<ion-view view-title="Refenes <small>Dashboard</small>">
+<ion-view view-title="Επισκόποιηση">
 
 	<ion-content class="padding">
-		<ion-refresher class="spinner-stable" pulling-text="Pull to refresh" on-refresh="refreshNotes()">
+
+		<ion-refresher class="spinner-stable" pulling-text="Τραβήξτε για ενημέρωση" on-refresh="Refresh()">
 		</ion-refresher>
-		<button class="button button-block button-balanced" ng-click="newNote()">Send a Note</button>
 
-		<div class="list list-notes">
-			<ion-item ng-repeat="note in notes" class="ng-binding" href="#/app/notes/{{note.id}}">
+		<p ng-if="!items" class="lead center">
+			No not were found
+		</p>
 
-				<div ng-switch on="note.type">
-					<div ng-switch-when="RECEIVED">
-						<span class="badge badge-positive">{{note.amount}}&euro;</span>
-						<h2><b>{{note.user.name.first || "Unknown"}}</b> send you a note</h2>
-					</div>
-					<div ng-switch-when="SEND">
-						<span class="badge badge-royal">{{note.amount}}&euro;</span>
-						<h2>You send a note to <b>{{note.user.name.first || "Unknown"}}</b></h2>
-					</div>
-					<p>
-						{{note.date|date:'dd/MM/yyyy'}} | {{note.user.email}}
-					</p>
-				</div>
+		<div class="list" ng-if="items">
 
-			</ion-item>
+			<div class="item item-icon-right item-avatar item-highlight" ng-repeat="item in items" ui-sref="app.items.item(item.id)">
+				<img ng-src="{{item.person.avatar}}">
+				<h2 ng-if="item.type=='RECEIVED'"><strong>{{item.person.name}}</strong> give you <strong>{{item.amount}} coins</strong></h2>
+				<h2 ng-if="item.type=='SEND'"><strong>You</strong> pay for <strong>{{item.amount}} coins</strong></h2>
+				<p>{{item.date_label}} - {{item.tab}}</p>
+			</div>
 
 		</div>
 

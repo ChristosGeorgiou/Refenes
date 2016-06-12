@@ -7,18 +7,21 @@ var ngAnnotate = require('gulp-ng-annotate');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var minify = require('gulp-clean-css');
+var jshint = require('gulp-jshint');
 
 var paths = {
     sass: ['./scss/**/*.scss'],
     app: ['./www/src/**/*.js']
 };
 
-gulp.task('default', [
-    "sass",
-    "build"
-]);
+gulp.task('default', ['sass', 'build'], function() {
 
-gulp.task('sass', function(done) {
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch(paths.app, ['build']);
+
+});
+
+gulp.task('sass', function() {
     return gulp.src(paths.sass, {
             read: true,
         })
@@ -34,6 +37,8 @@ gulp.task('sass', function(done) {
 gulp.task('build', function() {
 
     return gulp.src(paths.app)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
         .pipe(ngfilesort())
         .pipe(sourcemaps.init())
         .pipe(concat("app.min.js", {
@@ -48,9 +53,4 @@ gulp.task('build', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest("./www/assets/js"));
 
-});
-
-gulp.task('watch', ['sass', 'build'], function() {
-    gulp.watch(paths.sass, ['sass']);
-    gulp.watch(paths.app, ['build']);
 });

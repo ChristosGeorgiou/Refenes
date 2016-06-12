@@ -1,18 +1,24 @@
 {
-    "name": "Refenes",
-    "version": "0.1.1",
-    "description": "The individual share in a collective cost for food, entertainment , etc",
-    "private": true,
-    "dependencies": {},
-    "devDependencies": {
-        "gulp": "^3.9.1",
-        "gulp-angular-filesort": "^1.1.1",
-        "gulp-clean-css": "^2.0.7",
-        "gulp-concat": "*",
-        "gulp-rename": "*",
-        "gulp-sass": "^2.3.1",
-        "gulp-sourcemaps": "^1.6.0",
-        "gulp-uglify": "*",
-        "gulp-ng-annotate": "*"
-    }
+  "name": "Refenes",
+  "version": "0.1.1",
+  "description": "The individual share in a collective cost for food, entertainment , etc",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-clean-css": "^2.0.7",
+    "gulp-concat": "*",
+    "gulp-jshint": "^2.0.1",
+    "gulp-ng-annotate": "*",
+    "gulp-rename": "*",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "*",
+    "jshint": "^2.9.2"
+  },
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "android"
+  ]
 }

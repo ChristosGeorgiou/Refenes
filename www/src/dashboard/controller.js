@@ -6,22 +6,18 @@
         .controller('DashboardController', DashboardController);
 
     /*@ngInject*/
-    function DashboardController($scope, DashboardService) {
+    function DashboardController($scope, DashboardService, MockData) {
 
-        var vm = this;
-        vm.getActivities = getActivities;
+        $scope.Refresh = Refresh;
 
-        activate();
+        Refresh();
 
-        function activate() {
-            return getActivities();
-        }
-
-        function getActivities() {
+        function Refresh() {
+            console.log("refreshing dashboard");
             return DashboardService
                 .Load()
-                .then(function(Items) {
-                    vm.Items = Items;
+                .then(function(items) {
+                    $scope.Items = items;
                     $scope.$broadcast('scroll.refreshComplete');
                 }, function(error) {
                     $scope.error = error;
@@ -30,6 +26,7 @@
                     $scope.$broadcast('scroll.refreshComplete');
                 });
         }
+
     }
 
 }());

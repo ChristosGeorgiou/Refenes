@@ -11,12 +11,8 @@
         $stateProvider
             .state('app.dashboard', {
                 url: "/dashboard",
-                views: {
-                    'content': {
-                        templateUrl: "src/dashboard/view.html",
-                        controller: "DashboardController",
-                    }
-                }
+                templateUrl: "src/dashboard/view.html",
+                controller: "DashboardController",
             });
 
     }
