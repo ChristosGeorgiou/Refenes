@@ -1,7 +1,7 @@
 <ion-view view-title="Ρεφενέδες">
 
 	<ion-nav-buttons side="right">
-		<button ng-click="OpenNewRefenes()" class="button button-icon button-clear ion-ios-plus-outline">
+		<button ng-click="Open()" class="button button-icon button-clear ion-ios-plus-outline">
 		</button>
 	</ion-nav-buttons>
 
@@ -9,7 +9,7 @@
 
 		<div class="padding" ng-if="!tabs.length">
 			<div class="empty"> No tabs were found</div>
-			<button class="button button-block button-balanced" ng-click="OpenNewRefenes()">New Tab</button>
+			<button class="button button-block button-balanced" ng-click="Open()">New Tab</button>
 		</div>
 
 		<div class="list" ng-if="tabs.length">

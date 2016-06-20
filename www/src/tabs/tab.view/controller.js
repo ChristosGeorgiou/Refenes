@@ -37,8 +37,8 @@
                             var i = 0,
                                 len = $scope.tab.members.length;
                             for (; i < len; i++) {
-                                $scope.owns[$scope.tab.members[i]] = {
-                                    name: $scope.tab.members[i],
+                                $scope.owns[$scope.tab.members[i].name] = {
+                                    name: $scope.tab.members[i].name,
                                     amount: 0
                                 };
                             }
@@ -118,7 +118,7 @@
 
         function InitModal() {
             $ionicModal
-                .fromTemplateUrl('src/tabs/share.new/view.html', {
+                .fromTemplateUrl('src/tabs/share.form/view.html', {
                     scope: $scope
                 })
                 .then(function(modal) {
@@ -208,11 +208,11 @@
                 len = $scope.tab.members.length;
             for (; i < len; i++) {
                 _n.givers.push({
-                    name: $scope.tab.members[i],
+                    name: $scope.tab.members[i].name,
                     amount: 0, //Math.round(Math.random() * 100),
                 });
                 _n.takers.push({
-                    name: $scope.tab.members[i],
+                    name: $scope.tab.members[i].name,
                     amount: 0,
                 });
             }

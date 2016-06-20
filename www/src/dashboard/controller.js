@@ -6,7 +6,7 @@
         .controller('DashboardController', DashboardController);
 
     /*@ngInject*/
-    function DashboardController($state, $scope, DB, TabsService, $q, $ionicLoading, $ionicHistory) {
+    function DashboardController($state, $scope, DB, $q, $ionicLoading, $ionicHistory) {
 
         $ionicHistory.clearHistory();
 
@@ -49,12 +49,7 @@
                 $scope.loading = false;
                 $ionicLoading.hide();
             });
-
-        TabsService.Init($scope);
-
-        $scope.OpenNewRefenes = function() {
-            TabsService.Open();
-        };
+            
 
     }
 

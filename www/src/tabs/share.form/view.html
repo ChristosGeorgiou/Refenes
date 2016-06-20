@@ -27,7 +27,7 @@
             </div>
             <div class="item item-input item-button-right" ng-repeat="giver in note.givers">
                 <span class="input-label">{{giver.name}}</span>
-                <input type="text" ng-model="giver.amount" style="text-align:right">
+                <input type="number" ng-model="giver.amount" style="text-align:right">
             </div>
 
             <div class="item item-divider">
@@ -45,7 +45,7 @@
             </div>
             <div ng-if="!note.isEqual" class="item item-input item-button-right" ng-repeat="taker in note.takers">
                 <span class="input-label">{{taker.name}}</span>
-                <input type="text" ng-model="taker.amount">
+                <input type="number" ng-model="taker.amount">
             </div>
 
             <div class="padding">
@@ -53,7 +53,7 @@
                     Αποθήκευση
                 </button>
             </div>
-            <pre>{{note|json:1}}</pre>
+            
         </div>
     </ion-content>
 </ion-modal-view>
