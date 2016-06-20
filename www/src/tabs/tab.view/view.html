@@ -4,7 +4,7 @@
     <ion-nav-back-button side="right"></ion-nav-back-button>
 
     <ion-nav-title>
-      {{tab.title}}
+        {{tab.title}}
     </ion-nav-title>
 
     <ion-nav-buttons side="right">
@@ -29,16 +29,16 @@
             <div class="item item-divider">
                 Πληρωμές
             </div>
-
-            <a class="item" ng-repeat="note in notes" ng-click="ShowDetails(note.doc,$event)">
-                <span class="item-note">{{note.doc.amount | currency}}</span>
-                <h2>{{note.doc.description}}</h2>
-                <p>{{note.doc.date | date}}</p>
-            </a>
-
-            <a class="item item-icon-left positive" href ng-click="AddPayment()">
+            <a class="item item-icon-left positive" href ng-click="NewNote()">
                 <i class="icon ion-plus-circled"></i> Νέα Πληρωμή
             </a>
+
+            <a class="item" ng-repeat="note in notes" ng-click="SelectNote(note.doc)">
+                <span class="badge badge-dark">{{note.doc.amount_given | currency}}</span>
+                <h2>{{note.doc.description}}</h2>
+                <p>{{note.doc.date | date:'fullDate'}}</p>
+            </a>
+
 
         </div>
         <!-- <pre class=padding>{{owns|json:2}}</pre>

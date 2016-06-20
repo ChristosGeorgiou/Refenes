@@ -17,7 +17,7 @@
             })
             .state('app.tab', {
                 url: "/tabs/:id",
-                templateUrl: "src/tabs/tab/view.html",
+                templateUrl: "src/tabs/tab.view/view.html",
                 controller: "TabsTabController",
                 cache: false,
             });

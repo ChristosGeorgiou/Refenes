@@ -16,6 +16,7 @@
             Init: Init,
             MockData: MockData,
             Clear: Clear,
+            IDGen:IDGen,
         };
 
         return service;
@@ -25,23 +26,28 @@
             service.db.friends = new PouchDB("friends");
             service.db.tabs = new PouchDB("tabs");
             service.db.notes = new PouchDB("notes");
+
+            if (APP.Debug) {
+                PouchDB.debug.enable('*');
+            }
+
         }
 
         function Clear() {
-          return $q
-              .when()
-              .then(function() {
-                  return service.db.friends.destroy();
-              })
-              .then(function() {
-                  return service.db.tabs.destroy();
-              })
-              .then(function() {
-                  return service.db.notes.destroy();
-              })
-              .then(function() {
-                  Init();
-              });
+            return $q
+                .when()
+                .then(function() {
+                    return service.db.friends.destroy();
+                })
+                .then(function() {
+                    return service.db.tabs.destroy();
+                })
+                .then(function() {
+                    return service.db.notes.destroy();
+                })
+                .then(function() {
+                    Init();
+                });
         }
 
         function MockData() {
@@ -121,7 +127,7 @@
         }
 
 
-        function _guid() {
+        function IDGen() {
             return Math.floor((1 + Math.random()) * 0x10000000).toString(16);
         }
 

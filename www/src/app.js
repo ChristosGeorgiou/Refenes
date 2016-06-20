@@ -5,11 +5,16 @@
         .module('app', [
             'ionic',
             'ngResource',
+            'ngLocale',
         ])
         .run(run);
 
     /*@ngInject*/
     function run($ionicPlatform, DB) {
+
+        window.APP = {
+            Debug: true,
+        };
 
         DB.Init();
 

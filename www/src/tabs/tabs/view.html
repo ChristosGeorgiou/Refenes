@@ -16,7 +16,7 @@
 
 			<div class="item" ng-repeat="tab in tabs" ui-sref="app.tab({id:tab.id})">
 				<h2>{{tab.doc.title}}</h2>
-				<p>Μέλη: {{tab.doc.members.length }} - Δημιουργ.: {{tab.doc.date | date}}</p>
+				<p>Μέλη: {{tab.doc.members.length }} - Δημιουργ.: {{tab.doc.date | date:'fullDate'}}</p>
 			</div>
 
 		</div>

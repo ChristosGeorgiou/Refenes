@@ -1,28 +1,5 @@
-/*
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
-$calm:                            #11c1f3 !default;
-$balanced:                        #33cd5f !default;
-$energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
-*/
-$color-first: #886aea;
-$color-second: #222;
-$dark: $color-second !default; // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../../lib/ionic/fonts" !default; // Include all of Ionic
-@function set-text($color) {
-     @if (lightness($color) > 50){
-        @return #222;
-    }
-    @else {
-         @return #CCC;
-    }
-}
-@import "../www/lib/ionic/scss/ionic"; // @import "start";
-// @import "tables";
+$ionicons-font-path: "../../lib/ionic/fonts" !default;
+@import "../www/lib/ionic/scss/ionic";
 .empty {
     font-size: 1.4em;
     text-align: center;
@@ -33,81 +10,8 @@ $ionicons-font-path: "../../lib/ionic/fonts" !default; // Include all of Ionic
     color: #666;
     line-height: 1.4em;
 }
-.title.title-left.header-item {
-    left: 30px !important;
-}
-.bar {
-    &.bar-dark {
-        .title {
-            color: set-text($color-second);
-            small {
-                font-size: 0.7em;
-                opacity: 0.6;
-            }
-        }
-    }
-}
-.menu-left {
-    background: $color-second;
-}
-.menu-left .item-complex {
-    border-color: lighten($color-second,5);
-}
-.menu-left .item-complex .item-content {
-    background: $color-second;
-    color: set-text($color-second);
-}
-.menu-left .item-complex h2 {
-    color: set-text($color-second);
-}
-.menu-left .item-complex p {
-    color: lighten($color-second,30);
-}
-// .list-notes .item-complex .badge {
-//     right: 10px;
-//     font-size: 1.4em;
-//     padding: 0.5em;
-// }
-// .list-notes .item-complex .item-content {
-//     padding-right: 130px;
-// }
-// .action-sheet {
-//     margin: 0 15px !important;
-// }
-// .action-sheet .button {
-//     padding: 0 15px;
-//     border-bottom: solid 1px #eee !important;
-// }
-// code {
-//     background: #eee;
-//     padding: 2px;
-// }
-// pre {
-//     background: #eee;
-//     border-radius: 5px;
-//     padding: 5px;
-//     margin-bottom: 10px;
-// }
-// .footer {
-//     position: absolute;
-//     bottom: 0;
-//     left: 0;
-//     width: 100%;
-//     padding: 0 0 4px;
-//     color: lighten($color-second,10);
-//     z-index: 100;
-//     text-align: center;
-//     a {
-//         color: lighten($color-second,20);
-//         text-decoration: none;
-//     }
-// }
-.item-highlight {
-    border-left: solid 4px !important;
-    &.item-highlight-balanced {
-        border-left-color: $balanced !important;
-    }
-    &.item-highlight-assertive {
-        border-left-color: $assertive !important;
+.item {
+    .badge {
+        right: 16px;
     }
 }

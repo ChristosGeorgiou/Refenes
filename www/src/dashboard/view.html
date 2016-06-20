@@ -32,14 +32,12 @@
 				Τελευταίες Συναλλαγές
 			</div>
 			<div class="item" ng-repeat="note in notes" ui-sref="app.notes.note(note.id)">
-				<span class="item-note">{{note.doc.amount | currency}}</span>
+				<span class="badge badge-dark">{{note.doc.amount_given | currency}}</span>
 				<h2>{{note.doc.description}}</h2>
-				<p>{{note.doc.date | date}}</p>
+				<p>{{note.doc.date | date:'fullDate'}}</p>
 			</div>
-			
+
 		</div>
-		<pre>{{tabs|json:1}}</pre>
-		<pre>{{notes|json:1}}</pre>
 
 	</ion-content>
 
