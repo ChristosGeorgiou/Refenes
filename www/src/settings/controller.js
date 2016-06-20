@@ -6,15 +6,26 @@
         .controller('SettingsController', SettingsController);
 
     /*@ngInject*/
-    function SettingsController() {
+    function SettingsController($scope, DB, $ionicPopup, $ionicHistory) {
 
-        var vm = this;
+        $ionicHistory.clearHistory();
 
-        activate();
+        $scope.clear = function() {
+            DB.Clear();
+            $ionicPopup.alert({
+                title: 'Database cleared!',
+                template: 'Oh my'
+            });
+        };
 
-        function activate() {
+        $scope.mock = function() {
+            DB.MockData();
+            $ionicPopup.alert({
+                title: 'Database Mocked!',
+                template: 'It might taste good'
+            });
+        };
 
-        }
 
     }
 

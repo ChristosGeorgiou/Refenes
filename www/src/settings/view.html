@@ -1,29 +1,22 @@
-<ion-view view-title="Refenes <small>Settings</small>">
-  <ion-content class="padding">
-    <div class="list">
+<ion-view view-title="Settings">
 
-      <div class="item item-divider">
-        Notification
-      </div>
+    <ion-content class="padding">
 
-      <div class="item item-icon-left item-toggle">
-				<i class="icon ion-ios-bell"></i> Incoming Note
-        <label class="toggle">
-          <input type="checkbox">
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </div>
+        <div class="list">
 
-      <div class="item item-divider">
-        My Account
-      </div>
+            <div class="item item-divider">
+                Actions
+            </div>
+            <a href class="item" ng-click="clear()">
+                Clear Database
+            </a>
+            <a href class="item" ng-click="mock()">
+                Mock Data
+            </a>
 
-      <div class="item item-icon-left" ng-click="Logoff()">
-        <i class="icon ion-power"></i> Sign out form this device
-      </div>
 
-    </div>
-  </ion-content>
+        </div>
+
+    </ion-content>
+
 </ion-view>

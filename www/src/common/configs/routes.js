@@ -13,7 +13,7 @@
         $stateProvider
             .state('app', {
                 abstract: true,
-                templateUrl: "src/_common/layouts/default.html",
+                templateUrl: "src/common/layouts/default.html",
             });
 
     }

@@ -21,9 +21,18 @@ $ionicons-font-path: "../../lib/ionic/fonts" !default; // Include all of Ionic
          @return #CCC;
     }
 }
-@import "../www/lib/ionic/scss/ionic";
-// @import "start";
+@import "../www/lib/ionic/scss/ionic"; // @import "start";
 // @import "tables";
+.empty {
+    font-size: 1.4em;
+    text-align: center;
+    padding: 25px;
+    background: #FAFAFA;
+    border: solid 1px #EEE;
+    border-radius: 5px;
+    color: #666;
+    line-height: 1.4em;
+}
 .title.title-left.header-item {
     left: 30px !important;
 }
@@ -96,9 +105,9 @@ $ionicons-font-path: "../../lib/ionic/fonts" !default; // Include all of Ionic
 .item-highlight {
     border-left: solid 4px !important;
     &.item-highlight-balanced {
-        border-left-color: $balanced  !important;
+        border-left-color: $balanced !important;
     }
     &.item-highlight-assertive {
-        border-left-color: $assertive  !important;
+        border-left-color: $assertive !important;
     }
 }

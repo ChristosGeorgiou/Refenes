@@ -6,26 +6,55 @@
         .controller('DashboardController', DashboardController);
 
     /*@ngInject*/
-    function DashboardController($scope, DashboardService, MockData) {
+    function DashboardController($state, $scope, DB, TabsService, $q, $ionicLoading, $ionicHistory) {
 
-        $scope.Refresh = Refresh;
+        $ionicHistory.clearHistory();
 
-        Refresh();
+        $scope.loading = true;
 
-        function Refresh() {
-            console.log("refreshing dashboard");
-            return DashboardService
-                .Load()
-                .then(function(items) {
-                    $scope.Items = items;
-                    $scope.$broadcast('scroll.refreshComplete');
-                }, function(error) {
-                    $scope.error = error;
-                })
-                .finally(function() {
-                    $scope.$broadcast('scroll.refreshComplete');
+        $q
+            .when()
+            .then(function() {
+                return $ionicLoading.show({
+                    template: 'Loading...'
                 });
-        }
+            })
+            .then(function() {
+                return DB.db.notes
+                    .allDocs({
+                        include_docs: true,
+                    })
+                    .then(function(data) {
+
+                        $scope.notes = _.chain(data.rows)
+                            .sortBy(function(item) {
+                                return item.doc.date;
+                            })
+                            .first(10)
+                            .value()
+                            .reverse();
+
+                    });
+            })
+            .then(function() {
+                return DB.db.tabs
+                    .allDocs({
+                        include_docs: true,
+                    })
+                    .then(function(data) {
+                        $scope.tabs = data.rows;
+                    });
+            })
+            .then(function() {
+                $scope.loading = false;
+                $ionicLoading.hide();
+            });
+
+        TabsService.Init($scope);
+
+        $scope.OpenNewRefenes = function() {
+            TabsService.Open();
+        };
 
     }
 

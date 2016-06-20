@@ -9,10 +9,12 @@
         .run(run);
 
     /*@ngInject*/
-    function run($ionicPlatform, Settings) {
+    function run($ionicPlatform, DB) {
+
+        DB.Init();
 
         $ionicPlatform.ready(function() {
-            console.log($ionicPlatform);
+
             // if (window.cordova && window.cordova.plugins.Keyboard) {
             //     window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             // }
@@ -20,8 +22,6 @@
                 window.StatusBar.styleDefault();
             }
         });
-
-        angular.Settings = Settings;
 
     }
 

@@ -1,35 +1,25 @@
-<ion-view view-title="Tab - {{vm.tab.title}}">
+<ion-view>
+
+
+    <ion-nav-back-button side="right"></ion-nav-back-button>
+
+    <ion-nav-title>
+      {{tab.title}}
+    </ion-nav-title>
+
+    <ion-nav-buttons side="right">
+        <button ng-click="EditDetails()" class="button button-icon button-clear ion-ios-more">
+        </button>
+    </ion-nav-buttons>
 
     <ion-content>
 
         <div class="card">
-            <div class="item item-text-wrap">
-                <h1>{{vm.tab.title}}</h1>
-                <p>Created {{vm.tab.created}}</p>
-            </div>
-
-            <div class="item item-text-wrap">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates veniam esse quos enim voluptatibus est optio, quam consectetur, assumenda recusandae quo vero necessitatibus repellendus repellat aliquid, commodi quaerat possimus quae.</p>
-            </div>
-
-            <a class="item item-icon-left positive" href="#">
-                <i class="icon ion-edit"></i> Edit Details & Members
-            </a>
-
-        </div>
-
-        <div class="card">
             <div class="item item-divider">
-                Coin Balance
+                Χρωστούμενα
             </div>
-            <div class="item">
-                Soula <span class="badge badge-assertive">- 80</span>
-            </div>
-            <div class="item">
-                Makis <span class="badge badge-balanced">0</span>
-            </div>
-            <div class="item">
-                Sakis <span class="badge badge-energized">+ 80</span>
+            <div class="item" ng-repeat="own in owns">
+                {{own.name}} <span class="badge" ng-class="{'badge-assertive':own.amount<0,'badge-positive':own.amount>=0}">{{own.amount|currency}}</span>
             </div>
         </div>
 
@@ -37,25 +27,25 @@
         <div class="card">
 
             <div class="item item-divider">
-                Transactions
+                Πληρωμές
             </div>
 
-            <a class="item item-icon-left positive" href="#">
-                <i class="icon ion-plus-circled"></i> Add Coins Transaction
+            <a class="item" ng-repeat="note in notes" ng-click="ShowDetails(note.doc,$event)">
+                <span class="item-note">{{note.doc.amount | currency}}</span>
+                <h2>{{note.doc.description}}</h2>
+                <p>{{note.doc.date | date}}</p>
             </a>
 
-            <div class="item item-icon-right item-avatar item-highlight" ng-repeat="note in vm.tab.notes"
-              ui-sref="app.notes.note(note.id)" ng-class="{'item-highlight-balanced':note.type=='RECEIVED','item-highlight-assertive':note.type=='SEND'}">
-                <img ng-src="{{note.person.avatar}}">
-                <h2 ng-if="note.type=='RECEIVED'"><strong>{{note.person.name}}</strong> give you <strong>{{note.amount}} coins</strong></h2>
-                <h2 ng-if="note.type=='SEND'"><strong>You</strong> pay for <strong>{{note.amount}} coins</strong></h2>
-                <p>{{note.date_label}} - {{note.tab}}</p>
-                <i ng-if="note.type=='RECEIVED'" class="icon ion-log-in"></i>
-                <i ng-if="note.type=='SEND'" class="icon ion-log-out"></i>
-            </div>
+            <a class="item item-icon-left positive" href ng-click="AddPayment()">
+                <i class="icon ion-plus-circled"></i> Νέα Πληρωμή
+            </a>
 
         </div>
-<pre class=padding>{{vm.tab|json:2}}</pre>
+        <!-- <pre class=padding>{{owns|json:2}}</pre>
+        <pre class=padding>{{tab|json:2}}</pre>
+        <pre class=padding>{{notes|json:2}}</pre> -->
+
+
     </ion-content>
 
 </ion-view>

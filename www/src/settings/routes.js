@@ -11,13 +11,8 @@
         $stateProvider
             .state('app.settings', {
                 url: "/settings",
-                views: {
-                    'content': {
-                        templateUrl: "src/settings/view.html",
-                        controller: "SettingsController"
-                    }
-                }
-
+                templateUrl: "src/settings/view.html",
+                controller: "SettingsController",
             });
     }
 

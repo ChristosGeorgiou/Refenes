@@ -6,33 +6,38 @@
         .controller('TabsTabsController', TabsTabsController);
 
     /*@ngInject*/
-    function TabsTabsController($scope) {
+    function TabsTabsController($scope, DB, TabsService, $q, $ionicLoading, $ionicHistory) {
 
-        var vm = this;
+        $ionicHistory.clearHistory();
 
-        vm.refresh = refresh;
+        $scope.loading = true;
 
-        activate();
+        $q
+            .when()
+            .then(function() {
+                return $ionicLoading.show({
+                    template: 'Loading...'
+                });
+            })
+            .then(function() {
+                return DB.db.tabs
+                    .allDocs({
+                        include_docs: true,
+                    })
+                    .then(function(data) {
+                        $scope.tabs = data.rows;
+                    });
+            })
+            .then(function() {
+                $scope.loading = false;
+                $ionicLoading.hide();
+            });
 
-        function activate() {
-            refresh();
-        }
+        TabsService.Init($scope);
 
-        function refresh() {
-
-            vm.tabs = [{
-                id: "a1tre1sdf",
-                title: "Vacations 05/15",
-                created: moment().subtract(88, "days").fromNow(),
-            }, {
-                id: "jkbn645n",
-                title: "Party 02/15",
-                created: moment().subtract(188, "days").fromNow(),
-            }];
-
-            $scope.$broadcast('scroll.refreshComplete');
-
-        }
+        $scope.OpenNewRefenes = function() {
+            TabsService.Open();
+        };
 
     }
 

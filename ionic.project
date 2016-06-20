@@ -3,5 +3,9 @@
     "app_id": "632ce721",
     "gulpStartupTasks": [
         "default"
+    ],
+    "watchPatterns": [
+      "www/assets/js/*",
+      "www/src/**/*.html"
     ]
 }

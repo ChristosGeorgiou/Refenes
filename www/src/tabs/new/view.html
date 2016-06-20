@@ -1,0 +1,37 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-dark">
+        <h1 class="title">Νέος Ρεφενές</h1>
+        <button class="button button-icon icon ion-ios-close-outline" ng-click="modal_refenes.Close()"></button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider">
+                Βασικές Πληροφορίες
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Τίτλος</span>
+                <input type="text" ng-model="modal_refenes.data.title">
+            </label>
+            <div class="item item-divider">
+                Μέλη
+            </div>
+            <div class="item item-input item-button-right" ng-repeat="member in modal_refenes.data.members">
+                <span class="input-label">Μέλος {{$index+1}}</span>
+                <input type="text" ng-model="member.name">
+
+                <button class="button button-icon button-clear button-assertive" ng-click="modal_refenes.RemoveMember($index)">
+                    <i class="icon ion-ios-trash-outline"></i>
+                </button>
+
+            </div>
+            <a class="item item-icon-left balanced" ng-click="modal_refenes.AddMember()">
+                <i class="icon ion-ios-plus-outline"></i> Προσθήκη Μέλους
+            </a>
+            <div class="padding">
+                <button class="button button-block button-balanced" ng-click="modal_refenes.Save()">
+                    Αποθήκευση
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

@@ -13,6 +13,7 @@
                 url: "/dashboard",
                 templateUrl: "src/dashboard/view.html",
                 controller: "DashboardController",
+                cache: false,
             });
 
     }

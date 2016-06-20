@@ -13,13 +13,13 @@
                 url: "/tabs",
                 templateUrl: "src/tabs/tabs/view.html",
                 controller: "TabsTabsController",
-                controllerAs: "vm",
+                cache: false,
             })
             .state('app.tab', {
-                url: "/tab/:id",
+                url: "/tabs/:id",
                 templateUrl: "src/tabs/tab/view.html",
                 controller: "TabsTabController",
-                controllerAs: "vm",
+                cache: false,
             });
 
     }

@@ -1,24 +1,45 @@
-<ion-view view-title="Επισκόποιηση">
+<ion-view view-title="Επισκόπηση">
 
-	<ion-content class="padding">
 
-		<ion-refresher class="spinner-stable" pulling-text="Τραβήξτε για ενημέρωση" on-refresh="Refresh()">
-		</ion-refresher>
+	<ion-nav-buttons side="right">
+		<button ng-controller="HelpController" ng-click="showHelpModal()" class="button button-icon button-clear ion-ios-help-outline">
+		</button>
+	</ion-nav-buttons>
 
-		<p ng-if="!items" class="lead center">
-			No not were found
+	<ion-content class="padding" ng-hide="loading">
+
+		<div ng-if="!tabs.length">
+			<div class="list">
+				<div class="item item-text-wrap">
+					<h1>Καλωσήρθατε!</h1>
+					<p>O ρεφενές ειναι το ατομικό μερίδιο σε μια συλλογική δαπάνη για φαγητό, διασκέδαση κλπ</p>
+					<p>Με αυτή την εφαρμογή μπορείτε να φτιάξετε γρήγορα κάρτες αυτόματου υπολογισμού ρεφενέδων</p>
+					<p>Μην ανησυχείτε, η εφαρμογή δεν ανταλλάσσει πραγματικά χρήματα ούτε επικοινωνεί με το internet. Το μόνο που κάνει ειναι να αυτοματοποιήσει το χαρτί</p>
+				</div>
+				<button class="button button-block button-balanced" ng-click="OpenNewRefenes()">
+					Νέος Ρεφενές
+				</button>
+			</div>
+		</div>
+
+		<p ng-if="!notes.length && tabs.length" class="empty">
+			Δεν βρέθηκαν συναλλαγές
 		</p>
 
-		<div class="list" ng-if="items">
+		<div class="list" ng-if="notes.length">
 
-			<div class="item item-icon-right item-avatar item-highlight" ng-repeat="item in items" ui-sref="app.items.item(item.id)">
-				<img ng-src="{{item.person.avatar}}">
-				<h2 ng-if="item.type=='RECEIVED'"><strong>{{item.person.name}}</strong> give you <strong>{{item.amount}} coins</strong></h2>
-				<h2 ng-if="item.type=='SEND'"><strong>You</strong> pay for <strong>{{item.amount}} coins</strong></h2>
-				<p>{{item.date_label}} - {{item.tab}}</p>
+			<div class="item item-divider">
+				Τελευταίες Συναλλαγές
 			</div>
-
+			<div class="item" ng-repeat="note in notes" ui-sref="app.notes.note(note.id)">
+				<span class="item-note">{{note.doc.amount | currency}}</span>
+				<h2>{{note.doc.description}}</h2>
+				<p>{{note.doc.date | date}}</p>
+			</div>
+			
 		</div>
+		<pre>{{tabs|json:1}}</pre>
+		<pre>{{notes|json:1}}</pre>
 
 	</ion-content>
 
