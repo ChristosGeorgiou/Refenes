@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -13,9 +13,9 @@
         $stateProvider
             .state('app', {
                 abstract: true,
-                templateUrl: "src/common/layouts/default.html",
+                templateUrl: "src/common/views/layout.html",
             });
 
     }
 
-}());
+} ());
