@@ -1,5 +1,4 @@
-<ion-view view-title="Επισκόπηση">
-
+<ion-view view-title="Dashboard">
 
 	<ion-nav-buttons side="right">
 		<button ng-controller="HelpController" ng-click="showHelpModal()" class="button button-icon button-clear ion-ios-help-outline">
@@ -11,25 +10,38 @@
 		<div ng-if="!tabs.length">
 			<div class="list">
 				<div class="item item-text-wrap">
-					<h1>Καλωσήρθατε!</h1>
-					<p>O ρεφενές ειναι το ατομικό μερίδιο σε μια συλλογική δαπάνη για φαγητό, διασκέδαση κλπ</p>
-					<p>Με αυτή την εφαρμογή μπορείτε να φτιάξετε γρήγορα κάρτες αυτόματου υπολογισμού ρεφενέδων</p>
-					<p>Μην ανησυχείτε, η εφαρμογή δεν ανταλλάσσει πραγματικά χρήματα ούτε επικοινωνεί με το internet. Το μόνο που κάνει ειναι να αυτοματοποιήσει το χαρτί</p>
+					<h1>Welcome!</h1>
+					<p>Refenes is an online tool to manage the common bill with your friend. The name itself comes from greek
+						<code>ρεφενές</code> which comes from turkish
+						<code>refene</code> witch comes from persian
+						<code>عارفانه</code> (arefaneh) and means
+						<code>individual share in a collective cost for food, entertainment , etc.</code>
+						<a href="#" onclick="window.open('http://el.wiktionary.org/wiki/%CF%81%CE%B5%CF%86%CE%B5%CE%BD%CE%AD%CF%82', '_system', 'location=yes'); return false;">REF</a></p>
+
+					<p>Here in Greece we used not to split the bill if we go out. Each time someone will pay and eventually at some point we
+						will get even. This give us the time to actually accurate and not to look for changes in our wallets, plus if someone
+						don't have money we sure want him to our company. Now with the economic crisis the problem is that no one have money
+						to cover the others. More than one person pays each time, making common the reaction
+						<code>I have lost the ball</code>
+					</p>
+
+					<p>Refenes keep tracking these expenses accurately and throwing some math to simplify the final transactions.</p>
+
 				</div>
 				<button class="button button-block button-balanced" ng-click="">
-					Νέος Ρεφενές
-				</button>
+					New Tab
+					</button>
 			</div>
 		</div>
 
 		<p ng-if="!shares.length && tabs.length" class="empty">
-			Δεν βρέθηκαν συναλλαγές
+			No shares where found
 		</p>
 
 		<div class="list" ng-if="shares.length">
 
 			<div class="item item-divider">
-				Τελευταίες Συναλλαγές
+				Latest Shares
 			</div>
 			<div class="item" ng-repeat="share in shares" ui-sref="app.shares.share(share.id)">
 				<span class="badge badge-dark">{{share.doc.amount_given | currency}}</span>
