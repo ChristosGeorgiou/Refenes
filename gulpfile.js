@@ -14,17 +14,17 @@ var paths = {
     app: ['./www/src/**/*.js']
 };
 
-gulp.task('default', ['sass', 'build'], function() {
+gulp.task('default', ['sass', 'build', 'libs'], function () {
 
     gulp.watch(paths.sass, ['sass']);
     gulp.watch(paths.app, ['build']);
 
 });
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
     return gulp.src(paths.sass, {
-            read: true,
-        })
+        read: true,
+    })
         .pipe(sass().on('error', sass.logError))
         .pipe(minify())
         .pipe(rename({
@@ -34,7 +34,18 @@ gulp.task('sass', function() {
         .pipe(gulp.dest("./www/assets/css"));
 });
 
-gulp.task('build', function() {
+gulp.task('libs', function () {
+
+    gulp.src("./node_modules/ionic-sdk/release/**/*").pipe(gulp.dest("./www/libs/ionic-sdk"));
+    gulp.src("./node_modules/underscore/underscore-min.js").pipe(gulp.dest("./www/libs/underscore"));
+    gulp.src("./node_modules/moment/min/moment.min.js").pipe(gulp.dest("./www/libs/moment"));
+    gulp.src("./node_modules/pouchdb/dist/*").pipe(gulp.dest("./www/libs/pouchdb"));
+    gulp.src("./node_modules/angular-resource/angular-resource.min.js").pipe(gulp.dest("./www/libs/angular-resource"));
+    gulp.src("./node_modules/ionic-datepicker/dist/ionic-datepicker.bundle.min.js").pipe(gulp.dest("./www/libs/ionic-datepicker"));
+    
+});
+
+gulp.task('build', function () {
 
     return gulp.src(paths.app)
         .pipe(jshint())

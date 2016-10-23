@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "angular-resource": "1.5.8",
     "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-clean-css": "^2.0.7",
@@ -15,7 +16,12 @@
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "*",
-    "jshint": "^2.9.2"
+    "ionic-datepicker": "1.1.0",
+    "ionic-sdk": "1.2.4",
+    "jshint": "^2.9.2",
+    "moment": "2.15.1",
+    "pouchdb": "6.0.7",
+    "underscore": "1.8.3"
   },
   "cordovaPlugins": [],
   "cordovaPlatforms": [

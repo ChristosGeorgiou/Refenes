@@ -1,5 +1,5 @@
-$ionicons-font-path: "../../lib/ionic/fonts" !default;
-@import "../www/lib/ionic/scss/ionic";
+$ionicons-font-path: "../../libs/ionic-sdk/fonts" !default;
+@import "../node_modules/ionic-sdk/scss/ionic";
 .empty {
     font-size: 1.4em;
     text-align: center;
