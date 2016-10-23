@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,30 +6,23 @@
         .controller('TabsTabController', TabsTabController);
 
     /*@ngInject*/
-    function TabsTabController($scope, $stateParams, DB, $q, $ionicLoading, $ionicPopover, $ionicModal, $ionicActionSheet) {
+    function TabsTabController(TabsService, $scope, $stateParams, DB, $q, $ionicLoading, $ionicPopover, $ionicModal, $ionicActionSheet, ionicDatePicker) {
 
         var _id = $stateParams.id;
 
-        $scope.SelectNote = SelectNote;
+        $scope.SelectShare = SelectShare;
 
         InitTab();
-        InitModal();
+        InitShareModal();
 
         function InitTab() {
 
-            $scope.loading = true;
-
             $q
                 .when()
-                .then(function() {
-                    return $ionicLoading.show({
-                        template: 'Loading...'
-                    });
-                })
-                .then(function() {
+                .then(function () {
                     return DB.db.tabs
                         .get(_id)
-                        .then(function(data) {
+                        .then(function (data) {
                             $scope.tab = data;
 
                             $scope.owns = {};
@@ -45,107 +38,127 @@
 
                         });
                 })
-                .then(function() {
-                    return DB.db.notes
+                .then(function () {
+                    return DB.db.shares
                         .allDocs({
                             include_docs: true,
                         })
-                        .then(function(data) {
+                        .then(function (data) {
 
-                            $scope.notes = _.chain(data.rows)
-                                .filter(function(item) {
+                            $scope.shares = _.chain(data.rows)
+                                .filter(function (item) {
                                     return item.doc.tab == _id;
                                 })
-                                .sortBy(function(item) {
+                                .sortBy(function (item) {
                                     return item.doc.date;
                                 })
                                 .value()
                                 .reverse();
 
                             var i = 0,
-                                leni = $scope.notes.length;
+                                leni = $scope.shares.length;
                             for (; i < leni; i++) {
-                                var _n = $scope.notes[i].doc,
+                                var _n = $scope.shares[i].doc,
                                     j = 0,
-                                    lenj = _n.givers.length;
+                                    lenj = _n.payers.length;
                                 for (; j < lenj; j++) {
-                                    var _k = _n.givers[j].name;
-                                    $scope.owns[_k].amount += parseFloat(_n.givers[j].amount) - parseFloat(_n.takers[j].amount);
+                                    var _k = _n.payers[j].name;
+                                    $scope.owns[_k].amount += parseFloat(_n.payers[j].amount) - parseFloat(_n.takers[j].amount);
                                 }
                             }
 
                         })
-                        .catch(function() {
+                        .catch(function () {
                             $ionicLoading.hide();
                         });
-                })
-                .then(function() {
-                    $scope.loading = false;
-                    $ionicLoading.hide();
                 });
         }
 
-        function SelectNote(doc) {
+        function SelectShare(doc) {
 
             $ionicActionSheet
                 .show({
                     buttons: [{
-                        text: 'Επεξεργασία'
+                        text: 'Edit'
                     }],
-                    destructiveText: 'Διαγραφή',
+                    destructiveText: 'Delete',
                     // titleText: 'Select ',
-                    cancelText: 'Άκυρο',
+                    cancelText: 'Cancel',
                     // cancel: function() {
                     //     // add cancel code..
                     // },
-                    buttonClicked: function(index) {
+                    buttonClicked: function (index) {
                         switch (index) {
                             case 0:
-                                $scope.note = angular.copy(doc);
-                                _showNote();
+                                $scope.share = angular.copy(doc);
+                                OpenShareForm();
                                 break;
                             default:
                         }
                         return true;
                     },
-                    destructiveButtonClicked: function() {
-                        DB.db.notes.remove(doc);
+                    destructiveButtonClicked: function () {
+                        DB.db.shares.remove(doc);
                         InitTab();
                         return true;
                     },
                 });
         }
 
-        function InitModal() {
+        function InitShareModal() {
             $ionicModal
                 .fromTemplateUrl('src/tabs/share.form/view.html', {
                     scope: $scope
                 })
-                .then(function(modal) {
+                .then(function (modal) {
                     $scope.modal = modal;
                 });
 
-            $scope.CloseNote = function() {
+            $scope.CloseShare = function () {
                 $scope.modal.hide();
             };
 
-            $scope.NewNote = function() {
-                $scope.note = _initNote();
-                _showNote();
+            $scope.NewShare = function () {
+                $scope.share = TabsService.InitShare($scope.tab);
+                OpenShareForm();
             };
 
-            $scope.SaveNote = function() {
+            $scope.OpenDatePicker = function () {
+                ionicDatePicker.openDatePicker({
+                    callback: function (val) {  //Mandatory
+                        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+                    },
+                    // disabledDates: [            //Optional
+                    //     new Date(2016, 2, 16),
+                    //     new Date(2015, 3, 16),
+                    //     new Date(2015, 4, 16),
+                    //     new Date(2015, 5, 16),
+                    //     new Date('Wednesday, August 12, 2015'),
+                    //     new Date("08-16-2016"),
+                    //     new Date(1439676000000)
+                    // ],
+                    from: new Date(2012, 1, 1), //Optional
+                    to: new Date(2016, 10, 30), //Optional
+                    inputDate: new Date(),      //Optional
+                    mondayFirst: true,          //Optional
+                    disableWeekdays: [0],       //Optional
+                    closeOnSelect: false,       //Optional
+                    templateType: 'popup'       //Optional
+                });
+            };
+
+            $scope.SaveShare = function () {
 
                 $scope.modal.hide();
 
                 $scope.loading = true;
 
-                $scope.note.tab = _id;
+                $scope.share.tab = _id;
 
-                DB.db.notes.put($scope.note)
-                    .then(function(response) {
+                DB.db.shares.put($scope.share)
+                    .then(function (response) {
                         InitTab();
-                    }).catch(function(err) {
+                    }).catch(function (err) {
                         console.log(err);
                     });
 
@@ -155,19 +168,19 @@
 
         }
 
-        function _showNote() {
+        function OpenShareForm() {
 
-            $scope.$watch("note", function(newNote, oldNote) {
+            $scope.$watch("share", function (newShare, oldShare) {
 
-                $scope.note.amount_given = _.reduce(newNote.givers, function(memo, giver) {
+                $scope.share.amount_given = _.reduce(newShare.payers, function (memo, payer) {
                     var _a = 0;
-                    if (giver.amount) {
-                        _a = parseFloat(giver.amount);
+                    if (payer.amount) {
+                        _a = parseFloat(payer.amount);
                     }
                     return memo + _a;
                 }, 0).toFixed(2);
 
-                $scope.note.amount_taken = _.reduce(newNote.takers, function(memo, taker) {
+                $scope.share.amount_taken = _.reduce(newShare.takers, function (memo, taker) {
                     var _a = 0;
                     if (taker.amount) {
                         _a = parseFloat(taker.amount);
@@ -175,14 +188,17 @@
                     return memo + _a;
                 }, 0).toFixed(2);
 
-                _.each(newNote.givers, function(giver) {
-                    parseFloat(giver.amount).toFixed(2);
+                $scope.amount_diff = $scope.share.amount_given - $scope.share.amount_taken;
+                $scope.amount_is_off = ($scope.amount_diff > 0.01 || $scope.amount_diff < -0.01);
+
+                _.each(newShare.payers, function (payer) {
+                    parseFloat(payer.amount).toFixed(2);
                 });
 
-                if (newNote.isEqual) {
-                    newNote.equalShare = (newNote.amount_given / newNote.takers.length).toFixed(2);
-                    _.each(newNote.takers, function(taker) {
-                        taker.amount = newNote.equalShare;
+                if (newShare.isEqual || (oldShare.isEqual && !newShare.isEqual)) {
+                    newShare.equalShare = (newShare.amount_given / newShare.takers.length).toFixed(2);
+                    _.each(newShare.takers, function (taker) {
+                        taker.amount = parseFloat(newShare.equalShare);
                     });
                 }
 
@@ -191,37 +207,8 @@
             $scope.modal.show();
         }
 
-        function _initNote() {
-
-            var _n = {
-                _id: DB.IDGen(),
-                date: new Date(),
-                isEqual: true,
-                amount_given: 0,
-                amount_taken: 0,
-                equalShare: 0,
-                givers: [],
-                takers: [],
-            };
-
-            var i = 0,
-                len = $scope.tab.members.length;
-            for (; i < len; i++) {
-                _n.givers.push({
-                    name: $scope.tab.members[i].name,
-                    amount: 0, //Math.round(Math.random() * 100),
-                });
-                _n.takers.push({
-                    name: $scope.tab.members[i].name,
-                    amount: 0,
-                });
-            }
-
-            return _n;
-
-        }
 
     }
 
 
-}());
+} ());

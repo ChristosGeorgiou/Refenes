@@ -25,7 +25,7 @@
         function Init() {
             service.db.friends = new PouchDB("friends");
             service.db.tabs = new PouchDB("tabs");
-            service.db.notes = new PouchDB("notes");
+            service.db.shares = new PouchDB("shares");
 
             if (APP.Debug) {
                 PouchDB.debug.enable('*');
@@ -43,7 +43,7 @@
                     return service.db.tabs.destroy();
                 })
                 .then(function() {
-                    return service.db.notes.destroy();
+                    return service.db.shares.destroy();
                 })
                 .then(function() {
                     Init();
@@ -63,17 +63,17 @@
                         title: 'Ταξίδι στην Κρήτη',
                         date: "2016-01-18",
                         members: ["aa", "bb", "cc", "dd"],
-                        notes: 2,
+                        shares: 2,
                     }, {
                         _id: '9887ssfv',
                         title: 'Space Oddity',
                         date: "2016-06-18",
                         members: ["aa", "bb", "cc", "dd"],
-                        notes: 0,
+                        shares: 0,
                     }]);
                 })
                 .then(function() {
-                    return service.db.notes.bulkDocs([{
+                    return service.db.shares.bulkDocs([{
                         tab: '5ae21r3a',
                         description: 'Σουβλάκια',
                         amount: 40,

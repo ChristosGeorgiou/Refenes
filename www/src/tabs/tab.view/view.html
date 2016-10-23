@@ -1,51 +1,50 @@
 <ion-view>
 
+	<ion-nav-bar class="bar-dark">
 
-    <ion-nav-back-button side="right"></ion-nav-back-button>
+		<ion-nav-back-button></ion-nav-back-button>
 
-    <ion-nav-title>
-        {{tab.title}}
-    </ion-nav-title>
+		<ion-nav-title>
+			{{tab.title}}
+		</ion-nav-title>
 
-    <ion-nav-buttons side="right">
-        <button ng-click="EditDetails()" class="button button-icon button-clear ion-ios-more">
-        </button>
-    </ion-nav-buttons>
+		<!--<ion-nav-buttons side="right">
+			<button ng-click="EditDetails()" class="button button-icon button-clear ion-ios-more"></button>
+		</ion-nav-buttons>-->
 
-    <ion-content>
+	</ion-nav-bar>
 
-        <div class="card">
-            <div class="item item-divider">
-                Χρωστούμενα
-            </div>
-            <div class="item" ng-repeat="own in owns">
-                {{own.name}} <span class="badge" ng-class="{'badge-assertive':own.amount<0,'badge-positive':own.amount>=0}">{{own.amount|currency}}</span>
-            </div>
-        </div>
+	<ion-content>
 
-
-        <div class="card">
-
-            <div class="item item-divider">
-                Πληρωμές
-            </div>
-            <a class="item item-icon-left positive" href ng-click="NewNote()">
-                <i class="icon ion-plus-circled"></i> Νέα Πληρωμή
-            </a>
-
-            <a class="item" ng-repeat="note in notes" ng-click="SelectNote(note.doc)">
-                <span class="badge badge-dark">{{note.doc.amount_given | currency}}</span>
-                <h2>{{note.doc.description}}</h2>
-                <p>{{note.doc.date | date:'fullDate'}}</p>
-            </a>
+		<div class="card">
+			<div class="item" ng-repeat="own in owns">
+				{{own.name}} <span class="badge" ng-class="{'badge-assertive':own.amount<0,'badge-positive':own.amount>=0}">{{own.amount|currency}}</span>
+			</div>
+		</div>
 
 
-        </div>
-        <!-- <pre class=padding>{{owns|json:2}}</pre>
+		<div class="card">
+
+			<div class="item item-divider">
+				Shares
+			</div>
+			<a class="item item-icon-left positive" href ng-click="NewShare()">
+				<i class="icon ion-plus-circled"></i> New Share
+			</a>
+
+			<a class="item" ng-repeat="share in shares" ng-click="SelectShare(share.doc)">
+				<span class="badge badge-dark">{{share.doc.amount_given | currency}}</span>
+				<h2>{{share.doc.description}}</h2>
+				<p>{{share.doc.date | date:'fullDate'}}</p>
+			</a>
+
+
+		</div>
+		<!-- <pre class=padding>{{owns|json:2}}</pre>
         <pre class=padding>{{tab|json:2}}</pre>
-        <pre class=padding>{{notes|json:2}}</pre> -->
+        <pre class=padding>{{shares|json:2}}</pre> -->
 
 
-    </ion-content>
+	</ion-content>
 
 </ion-view>

@@ -1,59 +1,56 @@
 <ion-modal-view>
-    <ion-header-bar class="bar-dark">
-        <h1 class="title">Νέα Πληρωμή</h1>
-        <button class="button button-icon icon ion-ios-close-outline" ng-click="CloseNote()"></button>
-    </ion-header-bar>
-    <ion-content>
-        <div class="list">
+	<ion-header-bar class="bar-dark">
+		<h1 class="title">New Share</h1>
+		<button class="button button-icon icon ion-ios-close-outline" ng-click="CloseShare()"></button>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list">
 
-            <div class="item">
-                {{note._id}}
-                <span class="item-note">ID</span>
-            </div>
-            <div class="item">
-                {{note.date|date:'fullDate'}}
-                <span class="item-note">Date</span>
-            </div>
+			<a class="item" href ng-click="OpenDatePicker">
+                {{share.date|date}}
+            </a>
 
-            <div class="item item-divider">
-                Περιγραφή
-            </div>
-            <div class="item item-input">
-                <input type="text" ng-model="note.description">
-            </div>
+			<label class="item item-input item-floating-label">
+                <span class="input-label">Description</span>
+                <input type="text" ng-model="share.description" placeholder="Description">
+            </label>
 
-            <div class="item item-divider">
-                Έδωσαν Χρήματα <span style="float:right">{{note.amount|currency}}</span>
-            </div>
-            <div class="item item-input item-button-right" ng-repeat="giver in note.givers">
-                <span class="input-label">{{giver.name}}</span>
-                <input type="number" ng-model="giver.amount" style="text-align:right">
-            </div>
+			<div class="item item-divider">
+				Payers <span style="float:right">{{share.amount|currency}}</span>
+			</div>
+			<div class="item item-input item-button-right" ng-repeat="payer in share.payers">
+				<span class="input-label">{{payer.name}}</span>
+				<input type="number" ng-model="payer.amount" style="text-align:right">
+			</div>
 
-            <div class="item item-divider">
-                Μοιράστηκε <span style="float:right" ng-class="{assertive:(note.amount_given - note.amount_taken)!=0,balanced:(note.amount_given - note.amount_taken)==0}">{{(note.amount_given - note.amount_taken)|currency}}</span>
-            </div>
-            <div class="item item-toggle">
-                <span ng-if="note.isEqual">Ίσο Μοίρασμα <strong>{{note.equalShare | currency}}</strong></span>
-                <span ng-if="!note.isEqual">Άνισο Μοίρασμα</span>
-                <label class="toggle toggle-positive">
-                    <input type="checkbox" ng-model="note.isEqual">
+			<div class="item item-divider">
+				Shared
+				<span style="float:right" class="assertive" ng-show="amount_is_off">
+                    {{amount_diff|currency}}
+                </span>
+			</div>
+			<div class="item item-toggle">
+				<span ng-if="share.isEqual">Equally <strong>{{share.equalShare | currency}}</strong></span>
+				<span ng-if="!share.isEqual">Custom</span>
+				<label class="toggle toggle-positive">
+                    <input type="checkbox" ng-model="share.isEqual">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
-            </div>
-            <div ng-if="!note.isEqual" class="item item-input item-button-right" ng-repeat="taker in note.takers">
-                <span class="input-label">{{taker.name}}</span>
-                <input type="number" ng-model="taker.amount">
-            </div>
+			</div>
+			<div ng-if="!share.isEqual" class="item item-input item-button-right" ng-repeat="taker in share.takers">
+				<span class="input-label">{{taker.name}}</span>
+				<input type="number" ng-model="taker.amount" style="text-align:right">
+			</div>
 
-            <div class="padding">
-                <button class="button button-block button-balanced" ng-click="SaveNote()">
-                    Αποθήκευση
+			<div class="padding">
+				<button class="button button-block button-balanced" ng-click="SaveShare()">
+                    Save
                 </button>
-            </div>
-            
-        </div>
-    </ion-content>
+			</div>
+
+		</div>
+        <pre>{{share|json}}</pre>
+	</ion-content>
 </ion-modal-view>

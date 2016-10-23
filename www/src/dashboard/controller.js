@@ -20,13 +20,13 @@
                 });
             })
             .then(function() {
-                return DB.db.notes
+                return DB.db.shares
                     .allDocs({
                         include_docs: true,
                     })
                     .then(function(data) {
 
-                        $scope.notes = _.chain(data.rows)
+                        $scope.shares = _.chain(data.rows)
                             .sortBy(function(item) {
                                 return item.doc.date;
                             })

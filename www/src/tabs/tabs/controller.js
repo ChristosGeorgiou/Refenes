@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -14,21 +14,21 @@
 
         $q
             .when()
-            .then(function() {
+            .then(function () {
                 return $ionicLoading.show({
                     template: 'Loading...'
                 });
             })
-            .then(function() {
+            .then(function () {
                 return DB.db.tabs
                     .allDocs({
                         include_docs: true,
                     })
-                    .then(function(data) {
+                    .then(function (data) {
                         $scope.tabs = data.rows;
                     });
             })
-            .then(function() {
+            .then(function () {
                 $scope.loading = false;
                 $ionicLoading.hide();
             });
@@ -39,13 +39,13 @@
                 scope: $scope,
                 animation: 'slide-in-up'
             })
-            .then(function(modal) {
+            .then(function (modal) {
                 $scope.modal = modal;
             });
 
 
 
-        $scope.Open = function() {
+        $scope.Open = function () {
             $scope.tab = {
                 _id: DB.IDGen(),
                 title: null,
@@ -54,37 +54,37 @@
             $scope.modal.show();
         };
 
-        $scope.Close = function() {
+        $scope.Close = function () {
             $scope.modal.hide();
         };
 
-        $scope.Save = function() {
+        $scope.Save = function () {
             var _t = angular.copy($scope.tab);
-
+            _t.date = new Date();
             DB.db.tabs
                 .put(_t)
-                .then(function(resp) {
+                .then(function (resp) {
                     $state.go("app.tab", {
                         id: resp.id,
                     });
                     $scope.modal.hide();
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     console.log(err);
                 });
         };
 
-        $scope.AddMember = function() {
+        $scope.AddMember = function () {
             $scope.tab.members.push({
                 name: null
             });
         };
 
-        $scope.RemoveMember = function(i) {
+        $scope.RemoveMember = function (i) {
             $scope.tab.members.splice(i, 1);
         };
 
 
     }
 
-}());
+} ());

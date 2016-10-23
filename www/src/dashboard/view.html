@@ -22,19 +22,19 @@
 			</div>
 		</div>
 
-		<p ng-if="!notes.length && tabs.length" class="empty">
+		<p ng-if="!shares.length && tabs.length" class="empty">
 			Δεν βρέθηκαν συναλλαγές
 		</p>
 
-		<div class="list" ng-if="notes.length">
+		<div class="list" ng-if="shares.length">
 
 			<div class="item item-divider">
 				Τελευταίες Συναλλαγές
 			</div>
-			<div class="item" ng-repeat="note in notes" ui-sref="app.notes.note(note.id)">
-				<span class="badge badge-dark">{{note.doc.amount_given | currency}}</span>
-				<h2>{{note.doc.description}}</h2>
-				<p>{{note.doc.date | date:'fullDate'}}</p>
+			<div class="item" ng-repeat="share in shares" ui-sref="app.shares.share(share.id)">
+				<span class="badge badge-dark">{{share.doc.amount_given | currency}}</span>
+				<h2>{{share.doc.description}}</h2>
+				<p>{{share.doc.date | date:'fullDate'}}</p>
 			</div>
 
 		</div>

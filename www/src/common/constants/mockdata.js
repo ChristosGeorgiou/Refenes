@@ -4,7 +4,7 @@
     angular
         .module('app')
         .constant('MockData', {
-            Notes: [{
+            Shares: [{
                 id: 487,
                 person: {
                     avatar: "https://randomuser.me/api/portraits/women/72.jpg",

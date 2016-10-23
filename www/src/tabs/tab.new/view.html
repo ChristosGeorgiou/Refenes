@@ -1,34 +1,35 @@
 <ion-modal-view>
-    <ion-header-bar class="bar-dark">
-        <h1 class="title">Νέος Ρεφενές - {{tab._id}}</h1>
-        <button class="button button-icon icon ion-ios-close-outline" ng-click="Close()"></button>
-    </ion-header-bar>
-    <ion-content>
-        <div class="list">
-            <div class="item item-divider">
-                Βασικές Πληροφορίες
-            </div>
-            <label class="item item-input">
+	<ion-header-bar class="bar-dark">
+		<h1 class="title">New Tab</h1>
+		<button class="button button-icon icon ion-ios-close-outline" ng-click="Close()"></button>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list">
+			<div class="item item-divider">
+				General Information
+			</div>
+			<label class="item item-input">
                 <span class="input-label">Τίτλος</span>
                 <input type="text" ng-model="tab.title">
             </label>
-            <div class="item item-divider">
-                Μέλη
-            </div>
-            <div class="item item-input" ng-repeat="member in tab.members">
-                <span class="input-label">Μέλος {{$index+1}}</span>
-                <input type="text" ng-model="member.name">
-            </div>
+			<div class="item item-divider">
+				Members
+			</div>
+			<div class="item item-input" ng-repeat="member in tab.members">
+				<span class="input-label">Member {{$index+1}}</span>
+				<input type="text" ng-model="member.name">
+			</div>
 
-            <a class="item item-icon-left balanced" ng-click="AddMember()">
-                <i class="icon ion-ios-plus-outline"></i> Προσθήκη Μέλους
-            </a>
-            <div class="padding">
-                <button class="button button-block button-balanced" ng-click="Save()">
-                    Αποθήκευση
+			<a class="item item-icon-left balanced" ng-click="AddMember()">
+				<i class="icon ion-ios-plus-outline"></i> Add Member
+			</a>
+			<div class="padding">
+				<button class="button button-block button-balanced" ng-click="Save()">
+                    Create
                 </button>
-            </div>
+			</div>
 
-        </div>
-    </ion-content>
+		</div>
+		<div style="text-align:center">ID: {{tab._id}}</div>
+	</ion-content>
 </ion-modal-view>

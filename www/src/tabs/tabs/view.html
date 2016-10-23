@@ -1,4 +1,4 @@
-<ion-view view-title="Ρεφενέδες">
+<ion-view view-title="Tabs">
 
 	<ion-nav-buttons side="right">
 		<button ng-click="Open()" class="button button-icon button-clear ion-ios-plus-outline">
@@ -16,7 +16,7 @@
 
 			<div class="item" ng-repeat="tab in tabs" ui-sref="app.tab({id:tab.id})">
 				<h2>{{tab.doc.title}}</h2>
-				<p>Μέλη: {{tab.doc.members.length }} - Δημιουργ.: {{tab.doc.date | date:'fullDate'}}</p>
+				<p>{{tab.doc.members.length }} members - {{tab.doc.date | date:'shortDate'}}</p>
 			</div>
 
 		</div>

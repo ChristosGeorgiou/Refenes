@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,6 +6,7 @@
             'ionic',
             'ngResource',
             'ngLocale',
+            'ionic-datepicker',
         ])
         .run(run);
 
@@ -18,7 +19,7 @@
 
         DB.Init();
 
-        $ionicPlatform.ready(function() {
+        $ionicPlatform.ready(function () {
 
             // if (window.cordova && window.cordova.plugins.Keyboard) {
             //     window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -30,4 +31,4 @@
 
     }
 
-}());
+} ());
