@@ -1,53 +1,54 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app')
         .constant('MockData', {
-            Shares: [{
-                id: 487,
-                person: {
-                    avatar: "https://randomuser.me/api/portraits/women/72.jpg",
-                    name: "Soula",
-                },
-                date: moment().subtract(1, "days").toDate(),
-                date_label: moment().subtract(1, "days").fromNow(),
-                amount: 14.12,
-                type: "RECEIVED",
-                tab: "MyGroup",
+            Tabs: [{
+                _id: '1c4422ac-8ddc-4a04-99ef-3f5831c447d2',
+                title: 'Desert Stevia',
+                date: "2016-05-18",
+                members: [
+                    "Santiago Mills",
+                    "Jordan Graham",
+                    "Molly Jennings",
+                    "Kelly Hoffman",
+                ],
+                shares: 6,
             }, {
-                id: 6578,
-                person: {
-                    avatar: "https://randomuser.me/api/portraits/men/14.jpg",
-                    name: "Sakis",
-                },
-                date: moment().subtract(2, "days").toDate(),
-                date_label: moment().subtract(2, "days").fromNow(),
-                amount: 50.67,
-                type: "RECEIVED",
-                tab: "MyGroup",
+                _id: '9e5e22ac-8ddc-4a04-99ef-3f5831c447d2',
+                title: 'Mountain Neverest',
+                date: "2016-01-18",
+                members: [
+                    "Jordan Graham",
+                    "Molly Jennings",
+                    "Kelly Hoffman",
+                    "Jackie Tate",
+                    "Ronald Casey",
+                    "Bethany Martin",
+                    "Calvin Myers",
+                    "Greg Horton",
+                    "Santiago Mills",
+                    "Tommie Drake",
+                ],
+                shares: 10,
             }, {
-                id: 6578,
-                person: {
-                    avatar: "https://randomuser.me/api/portraits/men/72.jpg",
-                    name: "Christos",
-                },
-                date: moment().subtract(5, "days").toDate(),
-                date_label: moment().subtract(5, "days").fromNow(),
-                amount: 150.22,
-                type: "SEND",
-                tab: "MyGroup",
-            }, {
-                id: 6578,
-                person: {
-                    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
-                    name: "Makis",
-                },
-                date: moment().subtract(15, "days").toDate(),
-                date_label: moment().subtract(15, "days").fromNow(),
-                amount: 100.00,
-                type: "RECEIVED",
-                tab: "PRIVATE"
-            }]
+                _id: 'bc521186-effb-45e6-bf16-d8c25addfed2',
+                title: 'Space Oddity',
+                date: "2016-06-18",
+                members: [
+                    "Patsy Cruz",
+                    "Inez Lewis",
+                    "Shane Scott",
+                    "Robert Zimmerman",
+                    "Kelly Powers",
+                    "Benjamin Bowen",
+                    "Darlene Russell",
+                    "Gerald Payne",
+                ],
+                shares: 15,
+            }],
         });
+
+
 })();

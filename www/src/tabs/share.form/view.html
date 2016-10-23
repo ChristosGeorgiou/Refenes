@@ -1,12 +1,12 @@
 <ion-modal-view>
 	<ion-header-bar class="bar-dark">
-		<h1 class="title">New Share</h1>
+		<h1 class="title">Share</h1>
 		<button class="button button-icon icon ion-ios-close-outline" ng-click="CloseShare()"></button>
 	</ion-header-bar>
 	<ion-content>
 		<div class="list">
 
-			<a class="item" href ng-click="OpenDatePicker">
+			<a class="item" href="#" ng-click="OpenDatePicker">
                 {{share.date|date}}
             </a>
 
@@ -18,9 +18,9 @@
 			<div class="item item-divider">
 				Payers <span style="float:right">{{share.amount|currency}}</span>
 			</div>
-			<div class="item item-input item-button-right" ng-repeat="payer in share.payers">
-				<span class="input-label">{{payer.name}}</span>
-				<input type="number" ng-model="payer.amount" style="text-align:right">
+			<div class="item item-input item-button-right" ng-repeat="giver in share.givers track by $index">
+				<span class="input-label">{{tab.members[$index]}}</span>
+				<input type="number" ng-model="giver" style="text-align:right">
 			</div>
 
 			<div class="item item-divider">
@@ -30,18 +30,18 @@
                 </span>
 			</div>
 			<div class="item item-toggle">
-				<span ng-if="share.isEqual">Equally <strong>{{share.equalShare | currency}}</strong></span>
-				<span ng-if="!share.isEqual">Custom</span>
+				<span ng-if="share.equal">Equally <strong>{{share.equalShare | currency}}</strong></span>
+				<span ng-if="!share.equal">Custom</span>
 				<label class="toggle toggle-positive">
-                    <input type="checkbox" ng-model="share.isEqual">
+                    <input type="checkbox" ng-model="share.equal">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
 			</div>
-			<div ng-if="!share.isEqual" class="item item-input item-button-right" ng-repeat="taker in share.takers">
-				<span class="input-label">{{taker.name}}</span>
-				<input type="number" ng-model="taker.amount" style="text-align:right">
+			<div ng-if="!share.equal" class="item item-input item-button-right" ng-repeat="taker in share.takers track by $index">
+				<span class="input-label">{{tab.members[$index]}}</span>
+				<input type="number" ng-model="taker" style="text-align:right">
 			</div>
 
 			<div class="padding">
@@ -49,8 +49,9 @@
                     Save
                 </button>
 			</div>
+			<pre>{{share|json}}</pre>
 
 		</div>
-        <pre>{{share|json}}</pre>
+        
 	</ion-content>
 </ion-modal-view>

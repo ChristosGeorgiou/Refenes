@@ -47,7 +47,6 @@
 
         $scope.Open = function () {
             $scope.tab = {
-                _id: DB.IDGen(),
                 title: null,
                 members: [],
             };

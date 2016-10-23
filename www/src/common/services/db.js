@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .factory('DB', DB);
 
     /*@ngInject*/
-    function DB($q) {
+    function DB($q, MockData) {
 
         var _db_name = "refenes";
 
@@ -14,9 +14,8 @@
         var service = {
             db: {},
             Init: Init,
-            MockData: MockData,
+            Mock: Mock,
             Clear: Clear,
-            IDGen:IDGen,
         };
 
         return service;
@@ -36,102 +35,113 @@
         function Clear() {
             return $q
                 .when()
-                .then(function() {
+                .then(function () {
                     return service.db.friends.destroy();
                 })
-                .then(function() {
+                .then(function () {
                     return service.db.tabs.destroy();
                 })
-                .then(function() {
+                .then(function () {
                     return service.db.shares.destroy();
                 })
-                .then(function() {
+                .then(function () {
                     Init();
                 });
         }
 
-        function MockData() {
+        function Mock() {
 
             $q
                 .when()
-                .then(function() {
+                .then(function () {
                     return Clear();
                 })
-                .then(function() {
-                    return service.db.tabs.bulkDocs([{
-                        _id: '5ae21r3a',
-                        title: 'Ταξίδι στην Κρήτη',
-                        date: "2016-01-18",
-                        members: ["aa", "bb", "cc", "dd"],
-                        shares: 2,
-                    }, {
-                        _id: '9887ssfv',
-                        title: 'Space Oddity',
-                        date: "2016-06-18",
-                        members: ["aa", "bb", "cc", "dd"],
-                        shares: 0,
-                    }]);
+                .then(function () {
+                    //console.log("MOCK:TABS", MockData.Tabs);
+                    return service.db.tabs.bulkDocs(MockData.Tabs);
                 })
-                .then(function() {
-                    return service.db.shares.bulkDocs([{
-                        tab: '5ae21r3a',
-                        description: 'Σουβλάκια',
-                        amount: 40,
-                        date: "2016-01-19",
-                        shares: [{
-                            name: "aa",
-                            amount: 40
-                        }, {
-                            name: "aa",
-                            amount: -10
-                        }, {
-                            name: "bb",
-                            amount: -10
-                        }, {
-                            name: "cc",
-                            amount: -10
-                        }, {
-                            name: "dd",
-                            amount: -10
-                        }]
-                    }, {
-                        tab: '5ae21r3a',
-                        description: 'Ποτά',
-                        amount: 120,
-                        date: "2016-01-28",
-                        shares: [{
-                            name: "bb",
-                            amount: 60
-                        }, {
-                            name: "aa",
-                            amount: 40
-                        }, {
-                            name: "cc",
-                            amount: 20
-                        }, {
-                            name: "aa",
-                            amount: -10
-                        }, {
-                            name: "bb",
-                            amount: -40
-                        }, {
-                            name: "cc",
-                            amount: -40
-                        }, {
-                            name: "dd",
-                            amount: -30
-                        }]
-                    }]);
+                .then(function () {
+
+                    var _shares = [];
+                    for (var i = 0; i < MockData.Tabs.length; i++) {
+                        for (var j = 0; j < MockData.Tabs[i].shares; j++) {
+                            _shares.push(MockShare(MockData.Tabs[i]._id, MockData.Tabs[i].members.length));
+                        }
+                    }
+                    // console.log("MOCK:SHARES", _shares);
+
+                    return service.db.shares.bulkDocs(_shares);
+
                 });
 
         }
 
+        function MockShare(TabId, MembersLength) {
+            var lorem = [
+                'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur',
+                'adipiscing', 'elit', 'curabitur', 'vel', 'hendrerit', 'libero',
+                'eleifend', 'blandit', 'nunc', 'ornare', 'odio', 'ut',
+                'orci', 'gravida', 'imperdiet', 'nullam', 'purus', 'lacinia',
+                'a', 'pretium', 'quis', 'congue', 'praesent', 'sagittis',
+                'laoreet', 'auctor', 'mauris', 'non', 'velit', 'eros',
+                'dictum', 'proin', 'accumsan', 'sapien', 'nec', 'massa',
+                'volutpat', 'venenatis', 'sed', 'eu', 'molestie', 'lacus',
+                'quisque', 'porttitor', 'ligula', 'dui', 'mollis', 'tempus',
+                'at', 'magna', 'vestibulum', 'turpis', 'ac', 'diam',
+            ];
 
-        function IDGen() {
-            return Math.floor((1 + Math.random()) * 0x10000000).toString(16);
+            var _share = {
+                tab_id: TabId,
+                description: lorem[_.random(lorem.length - 1)] + " " + lorem[_.random(lorem.length - 1)],
+                date: moment().subtract(_.random(100), 'days').toDate(),
+                equal: (_.random(1)),
+                given: Math.round(parseFloat(((_.random(100, 1000) / _.random(5, 20)) * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2),
+                taken: Math.round(parseFloat(((_.random(100, 1000) / _.random(5, 20)) * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2),
+                givers: [],
+                takers: [],
+            };
+
+            var _index = 0;
+            var _left = _share.given;
+            var _am = 0;
+            while (_index++ < MembersLength) {
+                _am = _.random(_left);
+                _left -= _am;
+                _left = Math.round(parseFloat((_left * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2);
+                _share.givers.push(Math.round(parseFloat((_am * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2));
+            }
+
+            if (_left > 0) {
+                _share.givers[MembersLength - 1] += _left;
+                _share.givers[MembersLength - 1] = Math.round(parseFloat((_share.givers[MembersLength - 1] * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2);
+            }
+
+            if (_share.equal) {
+                for (var i = 0; i < MembersLength; i++) {
+                    _share.takers.push(Math.round(parseFloat(((_share.given / MembersLength) * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2));
+                }
+            }
+            else {
+                var _index2 = 0;
+                var _left2 = _share.given;
+                var _am2 = 0;
+                while (_index2++ < MembersLength) {
+                    _am2 = _.random(_left2);
+                    _left2 -= _am2;
+                    _left2 = Math.round(parseFloat((_left2 * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2);
+                    _share.takers.push(Math.round(parseFloat((_am2 * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2));
+                }
+                if (_left2 > 0) {
+                    _share.takers[MembersLength - 1] += _left2;
+                    _share.takers[MembersLength - 1] = Math.round(parseFloat((_share.takers[MembersLength - 1] * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2);
+
+                }
+            }
+
+            return _share;
         }
 
     }
 
 
-}());
+} ());

@@ -25,15 +25,12 @@
                         .then(function (data) {
                             $scope.tab = data;
 
-                            $scope.owns = {};
+                            $scope.owns = [];
 
                             var i = 0,
                                 len = $scope.tab.members.length;
                             for (; i < len; i++) {
-                                $scope.owns[$scope.tab.members[i].name] = {
-                                    name: $scope.tab.members[i].name,
-                                    amount: 0
-                                };
+                                $scope.owns.push(0);
                             }
 
                         });
@@ -47,7 +44,7 @@
 
                             $scope.shares = _.chain(data.rows)
                                 .filter(function (item) {
-                                    return item.doc.tab == _id;
+                                    return item.doc.tab_id == _id;
                                 })
                                 .sortBy(function (item) {
                                     return item.doc.date;
@@ -57,19 +54,19 @@
 
                             var i = 0,
                                 leni = $scope.shares.length;
+
                             for (; i < leni; i++) {
                                 var _n = $scope.shares[i].doc,
                                     j = 0,
-                                    lenj = _n.payers.length;
+                                    lenj = _n.givers.length;
                                 for (; j < lenj; j++) {
-                                    var _k = _n.payers[j].name;
-                                    $scope.owns[_k].amount += parseFloat(_n.payers[j].amount) - parseFloat(_n.takers[j].amount);
+                                    $scope.owns[j] += parseFloat(_n.givers[j]) - parseFloat(_n.takers[j]);
                                 }
                             }
 
-                        })
-                        .catch(function () {
-                            $ionicLoading.hide();
+                            $scope.tamount_diff = _.reduce($scope.owns, function (memo, num) { return memo + num; }, 0);
+                            $scope.tamount_is_off = ($scope.tamount_diff > 0.01 || $scope.tamount_diff < -0.01);
+
                         });
                 });
         }
@@ -124,6 +121,7 @@
             };
 
             $scope.OpenDatePicker = function () {
+
                 ionicDatePicker.openDatePicker({
                     callback: function (val) {  //Mandatory
                         console.log('Return value from the datepicker popup is : ' + val, new Date(val));
@@ -172,33 +170,33 @@
 
             $scope.$watch("share", function (newShare, oldShare) {
 
-                $scope.share.amount_given = _.reduce(newShare.payers, function (memo, payer) {
+                $scope.share.given = _.reduce(newShare.givers, function (memo, giver) {
                     var _a = 0;
-                    if (payer.amount) {
-                        _a = parseFloat(payer.amount);
+                    if (giver) {
+                        _a = parseFloat(giver);
                     }
                     return memo + _a;
                 }, 0).toFixed(2);
 
-                $scope.share.amount_taken = _.reduce(newShare.takers, function (memo, taker) {
+                $scope.share.taken = _.reduce(newShare.takers, function (memo, taker) {
                     var _a = 0;
-                    if (taker.amount) {
-                        _a = parseFloat(taker.amount);
+                    if (taker) {
+                        _a = parseFloat(taker);
                     }
                     return memo + _a;
                 }, 0).toFixed(2);
 
-                $scope.amount_diff = $scope.share.amount_given - $scope.share.amount_taken;
+                $scope.amount_diff = $scope.share.given - $scope.share.taken;
                 $scope.amount_is_off = ($scope.amount_diff > 0.01 || $scope.amount_diff < -0.01);
 
-                _.each(newShare.payers, function (payer) {
-                    parseFloat(payer.amount).toFixed(2);
+                _.each(newShare.givers, function (giver) {
+                    parseFloat(giver).toFixed(2);
                 });
 
-                if (newShare.isEqual || (oldShare.isEqual && !newShare.isEqual)) {
-                    newShare.equalShare = (newShare.amount_given / newShare.takers.length).toFixed(2);
+                if (newShare.equal || (oldShare.equal && !newShare.equal)) {
+                    newShare.equalShare = (newShare.given / newShare.takers.length).toFixed(2);
                     _.each(newShare.takers, function (taker) {
-                        taker.amount = parseFloat(newShare.equalShare);
+                        taker = parseFloat(newShare.equalShare);
                     });
                 }
 

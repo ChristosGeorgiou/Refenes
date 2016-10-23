@@ -19,7 +19,7 @@
         };
 
         $scope.mock = function() {
-            DB.MockData();
+            DB.Mock();
             $ionicPopup.alert({
                 title: 'Database Mocked!',
                 template: 'It might taste good'
