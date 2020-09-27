@@ -19,7 +19,7 @@
     "ionic-datepicker": "1.1.0",
     "ionic-sdk": "1.2.4",
     "jshint": "^2.9.2",
-    "moment": "2.15.1",
+    "moment": "2.29.0",
     "pouchdb": "6.0.7",
     "underscore": "1.8.3"
   },
