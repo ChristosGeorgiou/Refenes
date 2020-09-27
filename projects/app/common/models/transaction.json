@@ -1,0 +1,32 @@
+{
+  "name": "Transaction",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Amount": {
+      "type": "number",
+      "required": true
+    },
+    "PlacedAt": {
+      "type": "date",
+      "required": true
+    },
+    "Description": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Shares": {
+      "type": "hasMany",
+      "model": "Share",
+      "foreignKey": "TransactionID"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

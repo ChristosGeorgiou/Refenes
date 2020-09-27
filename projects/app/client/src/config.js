@@ -1,0 +1,1 @@
+(function() { window.APP={"name":"Refenes-Application","description":"An online tool to manage the common bill with your friends","version":"0.1.0","repository":"https://github.com/ChristosGeorgiou/balance.git","author":{"name":"Christos Georgiou","email":"xris.georgiou@gmail.com","url":"http://christosgeorgiou.gr"},"client":{"name":"Demo Company"}}; })();

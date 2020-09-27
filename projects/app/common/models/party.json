@@ -1,0 +1,23 @@
+{
+  "name": "Party",
+  "plural": "Parties",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Alias": {
+      "type": "string",
+      "required": true
+    },
+    "CreatedAt": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

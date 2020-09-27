@@ -1,0 +1,37 @@
+{
+  "name": "Person",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "ID": {
+      "type": "Number",
+      "id": true
+    },
+    "Name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Parties": {
+      "type": "hasAndBelongsToMany",
+      "model": "Party"
+    },
+    "Shares": {
+      "type": "hasMany",
+      "model": "Share",
+      "foreignKey": "PayeeID"
+    },
+    "Transactions": {
+      "type": "hasMany",
+      "model": "Transaction",
+      "foreignKey": "PayerID"
+    }
+  },
+  "acls": [],
+  "methods": []
+}
